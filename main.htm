@@ -1,0 +1,1529 @@
+<!--
+	Copyright (C) 2018 IMF FAD FAST Unit - All Rights Reserved
+-->
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Fiscal Monitor</title>
+		<script src="https://d3js.org/d3.v4.js"></script>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
+	 	<script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
+	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	 	<script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
+	 	<script src="js/saveSvgAsPng.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Nunito+Sans|Open+Sans|Roboto:300" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+		<link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed|Nunito+Sans|Open+Sans:400,600|Roboto:300,400" rel="stylesheet">
+		<link href="http://www.imf.org/external/07/images/imf_seal.ico" type="image/ico" rel="Shortcut Icon">
+		<style>
+		@font-face {
+		  font-family: 'MuseoSans-700';
+		  src: url("/fm_bubbles/static/webfonts/272A42_0_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_0_0.woff") format("woff"), url("/static/webfonts/272A42_0_0.ttf") format("truetype"); }
+		  src: url("/fm_bubbles/static/webfonts/272A42_0_0.eot");
+		@font-face {
+		  font-family: 'MuseoSans-300';
+		  src: url("/fm_bubbles/static/webfonts/272A42_1_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_1_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_1_0.woff") format("woff"), url("/static/webfonts/272A42_1_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSans-500';
+		  src: url("/fm_bubbles/static/webfonts/272A42_2_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_2_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_2_0.woff") format("woff"), url("/static/webfonts/272A42_2_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSans-300Italic';
+		  src: url("/fm_bubbles/static/webfonts/272A42_3_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_3_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_3_0.woff") format("woff"), url("/static/webfonts/272A42_3_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSlab-700';
+		  src: url("/fm_bubbles/static/webfonts/272A42_4_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_4_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_4_0.woff") format("woff"), url("/static/webfonts/272A42_4_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSlab-300';
+		  src: url("/fm_bubbles/static/webfonts/272A42_5_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_5_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_5_0.woff") format("woff"), url("/static/webfonts/272A42_5_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSlab-500';
+		  src: url("/fm_bubbles/static/webfonts/272A42_6_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_6_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_6_0.woff") format("woff"), url("/static/webfonts/272A42_6_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSlab-300Italic';
+		  src: url("/fm_bubbles/static/webfonts/272A42_7_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_7_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_7_0.woff") format("woff"), url("/static/webfonts/272A42_7_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSlab-700Italic';
+		  src: url("/fm_bubbles/static/webfonts/272A42_8_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_8_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_8_0.woff") format("woff"), url("/static/webfonts/272A42_8_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSlab-500Italic';
+		  src: url("/fm_bubbles/static/webfonts/272A42_9_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_9_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_9_0.woff") format("woff"), url("/static/webfonts/272A42_9_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSansCond-300';
+		  src: url("/fm_bubbles/static/webfonts/272A42_A_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_A_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_A_0.woff") format("woff"), url("/static/webfonts/272A42_A_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSansCond-500Italic';
+		  src: url("/fm_bubbles/static/webfonts/272A42_B_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_B_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_B_0.woff") format("woff"), url("/static/webfonts/272A42_B_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSansCond-500';
+		  src: url("/fm_bubbles/static/webfonts/272A42_C_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_C_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_C_0.woff") format("woff"), url("/static/webfonts/272A42_C_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSansCond-700';
+		  src: url("/fm_bubbles/static/webfonts/272A42_D_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_D_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_D_0.woff") format("woff"), url("/static/webfonts/272A42_D_0.ttf") format("truetype"); }
+		@font-face {
+		  font-family: 'MuseoSansCond-700Italic';
+		  src: url("/fm_bubbles/static/webfonts/272A42_E_0.eot");
+		  src: url("/fm_bubbles/static/webfonts/272A42_E_0.eot?#iefix") format("embedded-opentype"), url("/fm_bubbles/static/webfonts/272A42_E_0.woff") format("woff"), url("/static/webfonts/272A42_E_0.ttf") format("truetype"); }
+		
+		.row-eq-height {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+		}	
+
+		/* adapted to iframe */
+		@media only screen and (max-width: 350px) {
+ 			.btn-primary{
+			 	font-size:6px ;
+			 	padding-left: 5px !important;*/
+			 	text-align: left !important;
+			 }
+			 .btn{
+			 	/*width:100% !important;*/
+			 	
+			 }
+			 svg text{
+			 	font-size:6px !important;
+			 }
+			 svg text2{
+			 	/*font-size:7px !important;*/
+			 }	
+
+			.label.right{
+				font-size:6px !important;
+
+			}
+			.label{
+				font-size:6px !important;
+			}
+			.axis{
+				font-size:6px !important;
+			}	
+			svg{
+    		/*margin-top:30px;*/
+			padding-bottom: calc(280%) !important; /* fix issue svg outside of container in IE */
+
+    	}
+
+		} 
+
+		/* Extra small devices (phones, 600px and down) */
+		@media only screen and (min-width:351px) and (max-width: 600px) {
+			body {
+				font-size:12px;
+			}
+			h1 {
+				font-size:20px;
+			}
+			 .btn-primary{
+			 	font-size:7px ;
+			 	/*padding-left: 2px !important;*/
+			 	text-align: middle !important;
+			 }
+			 .btn{
+			 	/*width:100% !important;*/
+			 	
+			 }
+			 svg text{
+			 	font-size:7px !important;
+			 }
+			 svg text2{
+			 	/*font-size:7px !important;*/
+			 }	
+
+			.label.right{
+				font-size:7px !important;
+
+			}
+			.label{
+				font-size:7px !important;
+			}
+			.axis{
+				font-size:7px !important;
+			}	
+			svg{
+    		/*margin-top:30px;*/
+			padding-bottom: calc(210%) !important; /* fix issue svg outside of container in IE */
+
+    	}
+		} 
+
+		/* Small devices (portrait tablets and large phones, 600px and up) */
+		@media only screen and (min-width: 600px) {
+
+
+		} 
+
+		body {
+			background-color: #efefef;
+			height:100%;
+		}
+		.jumbotron {
+			background: #739FBF;
+			background: -webkit-linear-gradient(left, #88a7be, #688ca7); /* For Safari 5.1 to 6.0 */
+			background: -o-linear-gradient(right, #88a7be, #688ca7); /* For Opera 11.1 to 12.0 */
+			background: -moz-linear-gradient(right, #88a7be, #688ca7); /* For Firefox 3.6 to 15 */
+			background: linear-gradient(to right, #88a7be, #688ca7); /* Standard syntax (must be last) */
+			margin: 0px;
+			padding: 0px;
+		}
+		.jumbotron .left {
+			padding: 5px 0px 5px 0px;
+		}
+		.jumbotron .right {
+			background-image: url(/fm_bubbles/static/stuff/map.png);
+			background-position: right;
+			background-repeat: no-repeat;
+			background-size: contain;
+			height: 116px;
+		}
+		#search_group {
+			padding-top: 30px;
+		}
+		#feedback_button {
+			margin-top: 15px;
+		}
+		.container.for_nav {
+			background-color: white;
+		}
+		.navbar {
+			background-color: white;
+			border: 0px;
+			border-radius: 0px;
+			height: 34px;
+			margin-bottom: 0px;
+			min-height: 0px;
+		}
+		.navbar-nav > li {
+			padding-right: 8px;
+		}
+		.navbar-nav > li > a {
+			background-color: white;
+			color: black;
+			font-family: "MuseoSans-500";
+			font-size: 13px;
+			padding: 7px 10px 7px 10px;
+		}
+		.navbar-nav > li > a:hover {
+			background-color: white;
+			color: #3979A6;
+		}
+		.navbar-nav > li.active > a {
+			background-color: #3979A6;
+			color: white;
+		}
+		.nav.navbar-nav {
+			display: inline-block;
+			float: none;
+		}
+		a.active {
+			background-color: #3979A6;
+			color: white;
+		}
+		#title_bar {
+			background-color: #739FBF;
+			color: white;
+			font-family: "MuseoSansCond-700";
+			padding: 0px 0px 0px 40px;
+			text-transform: uppercase;
+		}
+		#title_bar h1 {
+			margin: 10px 0px 7px 0px;
+		}
+		#title_bar span {
+			color: white;
+			font-family: "MuseoSansCond-300";
+			font-size: 30px;
+			text-transform: uppercase;
+		}
+		.row.main {
+			background-color: white;
+		}
+		.row.main h1 {
+			color: white;
+		}
+		#story1 {
+			background-color: black;
+			color: white;
+			height: 400px;
+			overflow: hidden;
+			padding: 0px;
+			position: relative;
+			z-index: 1;
+		}
+		#story1 > .content {
+			z-index: 2;
+		}
+		#story1 > .content > .col-xs-12 {
+			margin-top: 110px;
+		}
+		#story1 h1, #story1 h1:hover, #story1 a, #story1 a:hover {
+			font-family: "MuseoSans-300";
+			font-size: 50px;
+			text-decoration: none;
+			text-shadow: 0px 0px 10px black;
+			text-transform: uppercase;
+		}
+		#story1 h3, #story h3:hover {
+			color: white;
+			font-family: "MuseoSansCond-300";
+			font-size: 30px;
+			text-decoration: none;
+			text-shadow: 0px 0px 10px black;
+		}
+		.after_fold {
+			background-color: white;
+			padding: 0px;
+		}
+		.after_fold > .main_header {
+			background-color: white;
+		}
+		.main_header > h3 {
+			color: #333333;
+			font-family: "MuseoSansCond-700";
+			font-size: 18px;
+			margin-top: 0px;
+			padding-top: 30px;
+			text-transform: uppercase;
+		}
+		.by_line {
+			padding: 0px 15px 0px 15px;
+		}
+		.by_line h4 {
+			font-family: "MuseoSansCond-300";
+			font-size: 40px;
+		}
+		.by_line h4:hover, .by_line a:hover {
+			text-decoration: none;
+		}
+		.by_line > h5 {
+			color: #595959;
+			font-family: "MuseoSans-500";
+			font-size: 22px;
+		}
+		.by_line img {
+			height: 250px;
+		}
+		#side_topics {
+			/*background-color: #21455f;*/
+			background-color: #414d58;
+			color: white;
+			margin-top: 30px;
+			margin-right: 15px;
+			padding: 20px 30px 20px 30px;
+		}
+		#side_topics h3, #side_topics h4 {
+			font-family: "MuseoSansCond-700";
+			text-transform: uppercase;
+		}
+		.second_h3 {
+			margin-top: 40px;
+		}
+		#side_topics h4 {
+			font-size: 20px;
+		}
+		#side_topics a {
+			color: #96b7cf;
+			display: block;
+			font-family: "MuseoSans-500";
+			font-size: 20px;
+		}
+		#side_topics a {
+			padding-bottom: 10px;
+		}
+		.row.substories {
+			background-color: white;
+			padding-top: 70px;
+			padding-bottom: 40px;
+		}
+		
+		.footer {
+			background: #739FBF;
+			background: -webkit-linear-gradient(left, #88a7be, #688ca7); /* For Safari 5.1 to 6.0 */
+			background: -o-linear-gradient(right, #88a7be, #688ca7); /* For Opera 11.1 to 12.0 */
+			background: -moz-linear-gradient(right, #88a7be, #688ca7); /* For Firefox 3.6 to 15 */
+			background: linear-gradient(to right, #88a7be, #688ca7); /* Standard syntax (must be last) */
+			padding-top: 20px;
+			padding-bottom: 60px;
+		}
+		.footer a {
+			display: block;
+			color: white;
+			font-family: "MuseoSans-500";
+			font-size: 11px;
+			margin-bottom: 5px;
+			text-transform: uppercase;
+		}
+		.footer a:hover {
+			color: #3979A6;
+			text-decoration: none;
+		}
+
+		svg text{
+			font-size:11px;
+		}
+
+		svg text2{
+			font-size:11px;
+			font-style: italic;
+		}
+		.label{
+			fill:#000000;
+		}
+		.label.right{
+			font-size:11px;
+			font-weight:normal;
+		}
+		.label{
+			font-size:11px;
+		}
+		.axis{
+			font-size:11px;
+		}
+		.axis path {
+			fill:none;
+			stroke:none;
+		}
+		.axis line {
+    		fill: none;
+    		stroke:#000000;
+    		shape-rendering: crispEdges;
+    	}
+		.gaussian_line, .gaussian_line_adv, .gaussian_line_eme, .gaussian_line_lidc line{
+    		stroke:#ccc;
+    		shape-rendering: crispEdges;
+    		stroke-dasharray:1,1;
+    	}
+    	.btn-group{
+    		margin-top:30px;
+    	}
+    	.btn{
+    		width:50%;
+    		background-color: #739FBF!important;
+    	}
+    	.btn:hover{
+    		background-color: #3979A6!important;
+    	}
+    	svg{
+    		overflow: visible !important;
+			padding-bottom: calc(135%); /* fix issue svg outside of container in IE */
+
+    	}
+    	.header{
+
+    	}
+    	.summary{
+    		margin-left:30px;
+    		margin-right:30px;
+    	}
+    	.row.main h1{
+    		color:#333;
+    	}
+    	.header h1{
+    		text-align: center;
+    	}
+    	/*** using html tooltip instead of svg bc svg cut off ***/
+    	.tooltip {
+    		pointer-events:none; /*let mouse events pass through*/
+    		opacity:0;
+    		transition: opacity 0.3s;
+    		text-shadow:1px 1px 0px gray;
+		}
+
+		div.tooltip {
+   			 background: lightblue;
+    		border:solid gray;
+    		position: absolute;
+    		max-width: 8em;
+    		text-align:center;
+		}
+		#btnSave {
+			padding-left:5px !important;
+		}
+		#divChart{
+
+		}
+		</style>
+	</head>
+	<body>	
+		<div class="container">
+			<!--<div class="row">
+				<div class="col-xs-12" id="title_bar">
+					<h1>Fiscal Monitor</h1>
+				</div>
+			</div>-->
+			<div class="row main" id="widget">
+				<div>
+					<div class="header">
+						<h1>Debt Around the World</h1>
+					</div>
+					<div class="summary">
+						<span>
+							<i>Of the global total of $184 trillion in debt at the end of 2017, close to two-thirds is nonfinancial private debt and the remainder is public debt.  The chart allows you to explore some of the differences between countries.</i>
+						</span>
+					</div>
+				</div>
+				<div class="row">
+				<div class="col-xs-6" style="float:none;" >
+				<div class="btn-group" style="display:block;">
+					<!--button type="button" class="btn btn-primary active" id="active" aria-pressed="true">Overview</button-->
+					<!--button type="button" class="btn btn-primary" id="ctg" disabled>Income group</button-->
+				</div>
+			</div>
+			<div style="float:right; width:15%;"><button type="button" class="btn btn-primary" id="btnSave"><span class="glyphicon glyphicon-save" aria-hidden="true" >PNG</span></button></div>
+			</div>
+			<div class="col-xs-10 col-xs-offset-2" id="divChart" >
+				<div class='chart'></div>
+				<div class="mouse tooltip" >Mouse-tracking HTML Tip</div>
+				<div id="img-out"></div>
+			</div>
+			</div>
+		</div>
+
+		
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script id="erasable" type="text/javascript">
+	
+	var data = [{"country":"United States","incgroup":"fm_adv","year":2017, "totdebt":256.1, "privdebt":58.9, "nomGDP":19485.4},
+{"country":"United Kingdom","incgroup":"fm_adv","year":2017, "totdebt":256.9, "privdebt":65.9, "nomGDP":2628.4},
+{"country":"Austria","incgroup":"fm_adv","year":2017, "totdebt":217.7, "privdebt":63.9, "nomGDP":417.4},
+{"country":"Belgium","incgroup":"fm_adv","year":2017, "totdebt":321.3, "privdebt":67.8, "nomGDP":493.7},
+{"country":"Denmark","incgroup":"fm_adv","year":2017, "totdebt":260.6, "privdebt":86.5, "nomGDP":325.6},
+{"country":"France","incgroup":"fm_adv","year":2017, "totdebt":289.1, "privdebt":66.5, "nomGDP":2587.7},
+{"country":"Germany","incgroup":"fm_adv","year":2017, "totdebt":171.0, "privdebt":62.7, "nomGDP":3700.6},
+{"country":"San Marino","incgroup":"fm_adv","year":2017, "totdebt":24.1, "privdebt":0.0, "nomGDP":1.6},
+{"country":"Italy","incgroup":"fm_adv","year":2017, "totdebt":245.8, "privdebt":46.4, "nomGDP":1938.7},
+{"country":"Luxembourg","incgroup":"fm_adv","year":2017, "totdebt":434.4, "privdebt":94.7, "nomGDP":62.5},
+{"country":"Netherlands","incgroup":"fm_adv","year":2017, "totdebt":335.9, "privdebt":83.2, "nomGDP":832.2},
+{"country":"Norway","incgroup":"fm_adv","year":2017, "totdebt":283.0, "privdebt":87.1, "nomGDP":398.8},
+{"country":"Sweden","incgroup":"fm_adv","year":2017, "totdebt":292.2, "privdebt":72.7, "nomGDP":535.6},
+{"country":"Switzerland","incgroup":"fm_adv","year":2017, "totdebt":282.2, "privdebt":85.2, "nomGDP":679.0},
+{"country":"Canada","incgroup":"fm_adv","year":2017, "totdebt":304.3, "privdebt":70.5, "nomGDP":1653.0},
+{"country":"Japan","incgroup":"fm_adv","year":2017, "totdebt":394.6, "privdebt":39.8, "nomGDP":4873.2},
+{"country":"Finland","incgroup":"fm_adv","year":2017, "totdebt":241.6, "privdebt":74.6, "nomGDP":252.8},
+{"country":"Greece","incgroup":"fm_adv","year":2017, "totdebt":300.4, "privdebt":39.5, "nomGDP":200.7},
+{"country":"Iceland","incgroup":"fm_adv","year":2017, "totdebt":290.6, "privdebt":86.3, "nomGDP":24.5},
+{"country":"Ireland","incgroup":"fm_adv","year":2017, "totdebt":325.9, "privdebt":79.0, "nomGDP":331.5},
+{"country":"Malta","incgroup":"fm_adv","year":2017, "totdebt":234.3, "privdebt":78.4, "nomGDP":12.6},
+{"country":"Portugal","incgroup":"fm_adv","year":2017, "totdebt":304.9, "privdebt":57.8, "nomGDP":218.0},
+{"country":"Spain","incgroup":"fm_adv","year":2017, "totdebt":256.5, "privdebt":61.7, "nomGDP":1314.0},
+{"country":"Turkey","incgroup":"fm_eme","year":2017, "totdebt":113.5, "privdebt":75.1, "nomGDP":851.5},
+{"country":"Australia","incgroup":"fm_adv","year":2017, "totdebt":238.0, "privdebt":82.9, "nomGDP":1379.5},
+{"country":"New Zealand","incgroup":"fm_adv","year":2017, "totdebt":204.7, "privdebt":84.5, "nomGDP":201.4},
+{"country":"South Africa","incgroup":"fm_eme","year":2017, "totdebt":124.4, "privdebt":57.4, "nomGDP":349.3},
+{"country":"Argentina","incgroup":"fm_eme","year":2017, "totdebt":78.4, "privdebt":26.6, "nomGDP":637.6},
+{"country":"Bolivia","incgroup":"fm_eme","year":2017, "totdebt":49.0, "privdebt":0.0, "nomGDP":37.8},
+{"country":"Brazil","incgroup":"fm_eme","year":2017, "totdebt":152.6, "privdebt":45.0, "nomGDP":2055.1},
+{"country":"Chile","incgroup":"fm_eme","year":2017, "totdebt":162.1, "privdebt":85.4, "nomGDP":277.0},
+{"country":"Colombia","incgroup":"fm_eme","year":2017, "totdebt":112.9, "privdebt":56.3, "nomGDP":314.5},
+{"country":"Costa Rica","incgroup":"fm_eme","year":2017, "totdebt":118.2, "privdebt":58.0, "nomGDP":58.3},
+{"country":"Dominican Republic","incgroup":"fm_eme","year":2017, "totdebt":70.9, "privdebt":47.5, "nomGDP":74.8},
+{"country":"Ecuador","incgroup":"fm_eme","year":2017, "totdebt":86.9, "privdebt":47.8, "nomGDP":104.3},
+{"country":"El Salvador","incgroup":"fm_eme","year":2017, "totdebt":123.4, "privdebt":45.0, "nomGDP":24.8},
+{"country":"Guatemala","incgroup":"fm_eme","year":2017, "totdebt":63.4, "privdebt":62.3, "nomGDP":75.6},
+{"country":"Haiti","incgroup":"spr_lic","year":2017, "totdebt":47.9, "privdebt":35.1, "nomGDP":8.6},
+{"country":"Honduras","incgroup":"spr_lic","year":2017, "totdebt":55.9, "privdebt":100.0, "nomGDP":23.0},
+{"country":"Mexico","incgroup":"fm_eme","year":2017, "totdebt":78.5, "privdebt":54.8, "nomGDP":1151.0},
+{"country":"Nicaragua","incgroup":"spr_lic","year":2017, "totdebt":72.3, "privdebt":53.9, "nomGDP":13.8},
+{"country":"Panama","incgroup":"fm_eme","year":2017, "totdebt":37.8, "privdebt":0.0, "nomGDP":61.8},
+{"country":"Paraguay","incgroup":"fm_eme","year":2017, "totdebt":57.8, "privdebt":72.4, "nomGDP":38.9},
+{"country":"Peru","incgroup":"fm_eme","year":2017, "totdebt":24.9, "privdebt":0.0, "nomGDP":214.2},
+{"country":"Uruguay","incgroup":"fm_eme","year":2017, "totdebt":79.9, "privdebt":40.3, "nomGDP":59.2},
+{"country":"Venezuela, Republica Bolivariana de","incgroup":"fm_eme","year":2015, "totdebt":98.7, "privdebt":57.2, "nomGDP":242.6},
+{"country":"Antigua and Barbuda","incgroup":"fm_eme","year":2017, "totdebt":86.8, "privdebt":0.0, "nomGDP":1.5},
+{"country":"Bahamas, The","incgroup":"fm_eme","year":2017, "totdebt":344.1, "privdebt":84.3, "nomGDP":12.2},
+{"country":"Barbados","incgroup":"fm_eme","year":2017, "totdebt":158.8, "privdebt":0.0, "nomGDP":5.0},
+{"country":"Dominica","incgroup":"spr_lic","year":2017, "totdebt":125.1, "privdebt":38.2, "nomGDP":0.6},
+{"country":"Grenada","incgroup":"spr_lic","year":2017, "totdebt":121.7, "privdebt":42.2, "nomGDP":1.1},
+{"country":"Guyana","incgroup":"spr_lic","year":2017, "totdebt":87.8, "privdebt":40.5, "nomGDP":3.6},
+{"country":"Belize","incgroup":"fm_eme","year":2017, "totdebt":99.9, "privdebt":0.0, "nomGDP":1.9},
+{"country":"Jamaica","incgroup":"fm_eme","year":2017, "totdebt":102.9, "privdebt":0.0, "nomGDP":14.8},
+{"country":"St. Kitts and Nevis","incgroup":"fm_eme","year":2017, "totdebt":62.9, "privdebt":0.0, "nomGDP":1.0},
+{"country":"St. Lucia","incgroup":"spr_lic","year":2017, "totdebt":141.3, "privdebt":49.4, "nomGDP":1.7},
+{"country":"St. Vincent and the Grenadines","incgroup":"spr_lic","year":2017, "totdebt":124.0, "privdebt":40.5, "nomGDP":0.8},
+{"country":"Suriname","incgroup":"fm_eme","year":2017, "totdebt":69.3, "privdebt":0.0, "nomGDP":3.4},
+{"country":"Trinidad & Tobago","incgroup":"fm_eme","year":2017, "totdebt":106.9, "privdebt":61.1, "nomGDP":22.8},
+{"country":"Bahrain","incgroup":"fm_eme","year":2015, "totdebt":155.4, "privdebt":57.5, "nomGDP":31.1},
+{"country":"Cyprus","incgroup":"fm_adv","year":2017, "totdebt":420.5, "privdebt":76.8, "nomGDP":21.7},
+{"country":"Iran, I. Rep. Of","incgroup":"fm_eme","year":2017, "totdebt":39.5, "privdebt":0.0, "nomGDP":430.7},
+{"country":"Iraq","incgroup":"fm_eme","year":2017, "totdebt":68.3, "privdebt":12.6, "nomGDP":192.4},
+{"country":"Israel","incgroup":"fm_adv","year":2017, "totdebt":171.9, "privdebt":64.6, "nomGDP":350.7},
+{"country":"Jordan","incgroup":"fm_eme","year":2017, "totdebt":95.9, "privdebt":0.0, "nomGDP":40.1},
+{"country":"Kuwait","incgroup":"fm_eme","year":2017, "totdebt":124.9, "privdebt":83.5, "nomGDP":120.7},
+{"country":"Lebanon","incgroup":"fm_eme","year":2017, "totdebt":251.7, "privdebt":41.7, "nomGDP":54.2},
+{"country":"Oman","incgroup":"fm_eme","year":2017, "totdebt":46.9, "privdebt":0.0, "nomGDP":70.8},
+{"country":"Qatar","incgroup":"fm_eme","year":2017, "totdebt":149.5, "privdebt":64.0, "nomGDP":166.9},
+{"country":"Saudi Arabia","incgroup":"fm_eme","year":2017, "totdebt":80.2, "privdebt":78.5, "nomGDP":686.7},
+{"country":"Syria","incgroup":"fm_eme","year":2010, "totdebt":30.0, "privdebt":0.0, "nomGDP":60.0},
+{"country":"U.A.E.","incgroup":"fm_eme","year":2017, "totdebt":127.1, "privdebt":84.5, "nomGDP":382.6},
+{"country":"Egypt","incgroup":"fm_eme","year":2017, "totdebt":130.7, "privdebt":21.1, "nomGDP":236.5},
+{"country":"Yemen","incgroup":"spr_lic","year":2013, "totdebt":53.8, "privdebt":10.5, "nomGDP":40.4},
+{"country":"West Bank and Gaza","incgroup":"fm_eme","year":2017, "totdebt":34.9, "privdebt":0.0, "nomGDP":14.5},
+{"country":"Afghanistan","incgroup":"spr_lic","year":2017, "totdebt":10.1, "privdebt":30.8, "nomGDP":20.2},
+{"country":"Bangladesh","incgroup":"spr_lic","year":2017, "totdebt":74.6, "privdebt":58.4, "nomGDP":261.5},
+{"country":"Bhutan","incgroup":"spr_lic","year":2017, "totdebt":157.5, "privdebt":32.5, "nomGDP":2.4},
+{"country":"Brunei Darussalam","incgroup":"fm_eme","year":2017, "totdebt":2.8, "privdebt":0.0, "nomGDP":12.1},
+{"country":"Myanmar","incgroup":"spr_lic","year":2017, "totdebt":57.4, "privdebt":41.4, "nomGDP":67.3},
+{"country":"Cambodia","incgroup":"spr_lic","year":2017, "totdebt":116.2, "privdebt":73.8, "nomGDP":22.1},
+{"country":"Sri Lanka","incgroup":"fm_eme","year":2017, "totdebt":79.1, "privdebt":0.0, "nomGDP":87.3},
+{"country":"Taiwan Province of China","incgroup":"fm_adv","year":2017, "totdebt":35.7, "privdebt":0.0, "nomGDP":572.6},
+{"country":"Hong Kong SAR","incgroup":"fm_adv","year":2017, "totdebt":302.7, "privdebt":100.0, "nomGDP":341.4},
+{"country":"India","incgroup":"fm_eme","year":2017, "totdebt":125.5, "privdebt":43.3, "nomGDP":2602.3},
+{"country":"Indonesia","incgroup":"fm_eme","year":2017, "totdebt":69.2, "privdebt":58.4, "nomGDP":1015.4},
+{"country":"Timor Leste","incgroup":"spr_lic","year":2017, "totdebt":13.0, "privdebt":70.5, "nomGDP":2.8},
+{"country":"Korea, Republic of","incgroup":"fm_adv","year":2017, "totdebt":231.4, "privdebt":82.9, "nomGDP":1540.5},
+{"country":"Laos","incgroup":"spr_lic","year":2010, "totdebt":73.4, "privdebt":27.1, "nomGDP":7.5},
+{"country":"Malaysia","incgroup":"fm_eme","year":2017, "totdebt":73.1, "privdebt":0.0, "nomGDP":312.4},
+{"country":"Maldives","incgroup":"spr_lic","year":2017, "totdebt":93.6, "privdebt":31.7, "nomGDP":4.5},
+{"country":"Nepal","incgroup":"spr_lic","year":2017, "totdebt":105.9, "privdebt":75.1, "nomGDP":24.9},
+{"country":"Pakistan","incgroup":"fm_eme","year":2017, "totdebt":88.7, "privdebt":24.5, "nomGDP":305.0},
+{"country":"Philippines","incgroup":"fm_eme","year":2017, "totdebt":98.6, "privdebt":59.5, "nomGDP":313.6},
+{"country":"Singapore","incgroup":"fm_adv","year":2017, "totdebt":277.7, "privdebt":59.6, "nomGDP":323.9},
+{"country":"Thailand","incgroup":"fm_eme","year":2017, "totdebt":168.8, "privdebt":77.1, "nomGDP":455.4},
+{"country":"Vietnam","incgroup":"spr_lic","year":2017, "totdebt":189.2, "privdebt":69.1, "nomGDP":220.4},
+{"country":"Djibouti","incgroup":"spr_lic","year":2017, "totdebt":60.6, "privdebt":47.5, "nomGDP":2.0},
+{"country":"Algeria","incgroup":"fm_eme","year":2017, "totdebt":51.7, "privdebt":46.9, "nomGDP":167.6},
+{"country":"Angola","incgroup":"fm_eme","year":2017, "totdebt":65.0, "privdebt":0.0, "nomGDP":126.5},
+{"country":"Botswana","incgroup":"fm_eme","year":2017, "totdebt":48.5, "privdebt":70.5, "nomGDP":17.4},
+{"country":"Burundi","incgroup":"spr_lic","year":2017, "totdebt":65.5, "privdebt":21.0, "nomGDP":3.4},
+{"country":"Cameroon","incgroup":"spr_lic","year":2017, "totdebt":51.2, "privdebt":27.9, "nomGDP":35.0},
+{"country":"Cape Verde","incgroup":"spr_lic","year":2017, "totdebt":187.5, "privdebt":32.9, "nomGDP":1.8},
+{"country":"C.A.R.","incgroup":"spr_lic","year":2017, "totdebt":64.4, "privdebt":17.9, "nomGDP":1.9},
+{"country":"Chad","incgroup":"spr_lic","year":2017, "totdebt":62.2, "privdebt":15.6, "nomGDP":9.9},
+{"country":"Comoros","incgroup":"spr_lic","year":2017, "totdebt":57.8, "privdebt":44.0, "nomGDP":0.7},
+{"country":"Congo, Republic of","incgroup":"spr_lic","year":2017, "totdebt":151.8, "privdebt":13.8, "nomGDP":8.7},
+{"country":"Congo, Dem. Rep. of","incgroup":"spr_lic","year":2017, "totdebt":23.2, "privdebt":21.9, "nomGDP":41.4},
+{"country":"Benin","incgroup":"spr_lic","year":2017, "totdebt":77.2, "privdebt":29.3, "nomGDP":9.2},
+{"country":"Equatorial Guinea","incgroup":"fm_eme","year":2017, "totdebt":37.4, "privdebt":0.0, "nomGDP":12.5},
+{"country":"Eritrea","incgroup":"spr_lic","year":2014, "totdebt":137.0, "privdebt":6.1, "nomGDP":4.0},
+{"country":"Ethiopia","incgroup":"spr_lic","year":2017, "totdebt":54.2, "privdebt":0.0, "nomGDP":80.9},
+{"country":"Gabon","incgroup":"fm_eme","year":2017, "totdebt":62.7, "privdebt":0.0, "nomGDP":14.9},
+{"country":"Gambia, The","incgroup":"spr_lic","year":2017, "totdebt":93.5, "privdebt":5.9, "nomGDP":1.5},
+{"country":"Ghana","incgroup":"spr_lic","year":2017, "totdebt":88.0, "privdebt":18.4, "nomGDP":47.0},
+{"country":"Guinea-Bissau","incgroup":"spr_lic","year":2017, "totdebt":66.2, "privdebt":18.6, "nomGDP":1.3},
+{"country":"Guinea","incgroup":"spr_lic","year":2017, "totdebt":37.9, "privdebt":0.0, "nomGDP":10.3},
+{"country":"Cote D'Ivoire","incgroup":"spr_lic","year":2017, "totdebt":71.9, "privdebt":34.6, "nomGDP":40.5},
+{"country":"Kenya","incgroup":"spr_lic","year":2017, "totdebt":82.7, "privdebt":34.5, "nomGDP":79.2},
+{"country":"Lesotho","incgroup":"spr_lic","year":2017, "totdebt":50.6, "privdebt":33.4, "nomGDP":2.7},
+{"country":"Liberia","incgroup":"spr_lic","year":2015, "totdebt":46.5, "privdebt":44.4, "nomGDP":3.2},
+{"country":"Libya","incgroup":"fm_eme","year":2017, "totdebt":142.7, "privdebt":0.0, "nomGDP":30.6},
+{"country":"Madagascar","incgroup":"spr_lic","year":2017, "totdebt":49.5, "privdebt":27.3, "nomGDP":11.5},
+{"country":"Malawi","incgroup":"spr_lic","year":2017, "totdebt":54.8, "privdebt":0.0, "nomGDP":6.2},
+{"country":"Mali","incgroup":"spr_lic","year":2017, "totdebt":62.4, "privdebt":43.2, "nomGDP":15.4},
+{"country":"Mauritania","incgroup":"spr_lic","year":2012, "totdebt":96.6, "privdebt":23.9, "nomGDP":5.2},
+{"country":"Mauritius","incgroup":"fm_eme","year":2017, "totdebt":152.3, "privdebt":57.1, "nomGDP":13.3},
+{"country":"Morocco","incgroup":"fm_eme","year":2017, "totdebt":135.1, "privdebt":51.8, "nomGDP":109.3},
+{"country":"Mozambique","incgroup":"spr_lic","year":2017, "totdebt":127.0, "privdebt":19.6, "nomGDP":12.6},
+{"country":"Niger","incgroup":"spr_lic","year":2017, "totdebt":60.6, "privdebt":25.3, "nomGDP":8.2},
+{"country":"Nigeria","incgroup":"spr_lic","year":2017, "totdebt":34.4, "privdebt":36.6, "nomGDP":376.4},
+{"country":"Zimbabwe","incgroup":"spr_lic","year":2017, "totdebt":82.3, "privdebt":0.0, "nomGDP":17.6},
+{"country":"Rwanda","incgroup":"spr_lic","year":2017, "totdebt":61.0, "privdebt":33.7, "nomGDP":9.1},
+{"country":"São Tomé and Príncipe","incgroup":"spr_lic","year":2017, "totdebt":109.1, "privdebt":19.0, "nomGDP":0.4},
+{"country":"Seychelles","incgroup":"fm_eme","year":2017, "totdebt":63.6, "privdebt":0.0, "nomGDP":1.5},
+{"country":"Senegal","incgroup":"spr_lic","year":2017, "totdebt":77.6, "privdebt":37.7, "nomGDP":21.1},
+{"country":"Sierra Leone","incgroup":"spr_lic","year":2017, "totdebt":69.1, "privdebt":7.5, "nomGDP":3.6},
+{"country":"Namibia","incgroup":"fm_eme","year":2017, "totdebt":42.0, "privdebt":0.0, "nomGDP":13.2},
+{"country":"Sudan","incgroup":"spr_lic","year":2017, "totdebt":130.2, "privdebt":6.6, "nomGDP":45.8},
+{"country":"South Sudan","incgroup":"spr_lic","year":2017, "totdebt":64.1, "privdebt":2.2, "nomGDP":3.1},
+{"country":"Swaziland","incgroup":"fm_eme","year":2017, "totdebt":28.8, "privdebt":0.0, "nomGDP":4.4},
+{"country":"Tanzania","incgroup":"spr_lic","year":2017, "totdebt":50.3, "privdebt":26.5, "nomGDP":51.8},
+{"country":"Togo","incgroup":"spr_lic","year":2017, "totdebt":115.2, "privdebt":34.2, "nomGDP":4.8},
+{"country":"Tunisia","incgroup":"fm_eme","year":2017, "totdebt":70.3, "privdebt":0.0, "nomGDP":40.0},
+{"country":"Uganda","incgroup":"spr_lic","year":2017, "totdebt":53.2, "privdebt":24.7, "nomGDP":26.6},
+{"country":"Burkina Faso","incgroup":"spr_lic","year":2017, "totdebt":68.7, "privdebt":44.6, "nomGDP":12.6},
+{"country":"Zambia","incgroup":"spr_lic","year":2017, "totdebt":74.3, "privdebt":15.0, "nomGDP":25.7},
+{"country":"Solomon Islands","incgroup":"spr_lic","year":2017, "totdebt":32.0, "privdebt":70.7, "nomGDP":1.3},
+{"country":"Fiji","incgroup":"fm_eme","year":2017, "totdebt":48.9, "privdebt":0.0, "nomGDP":4.9},
+{"country":"Kiribati","incgroup":"spr_lic","year":2017, "totdebt":26.3, "privdebt":0.0, "nomGDP":0.2},
+{"country":"Nauru","incgroup":"fm_eme","year":2017, "totdebt":62.0, "privdebt":0.0, "nomGDP":0.1},
+{"country":"Vanuatu","incgroup":"spr_lic","year":2017, "totdebt":113.1, "privdebt":57.2, "nomGDP":0.9},
+{"country":"Papua New Guinea","incgroup":"spr_lic","year":2017, "totdebt":53.9, "privdebt":31.7, "nomGDP":19.8},
+{"country":"Samoa","incgroup":"spr_lic","year":2017, "totdebt":96.8, "privdebt":49.3, "nomGDP":0.8},
+{"country":"Tonga","incgroup":"spr_lic","year":2017, "totdebt":81.7, "privdebt":46.9, "nomGDP":0.5},
+{"country":"Marshall Islands","incgroup":"spr_lic","year":2017, "totdebt":25.5, "privdebt":0.0, "nomGDP":0.2},
+{"country":"Micronesia","incgroup":"spr_lic","year":2017, "totdebt":50.0, "privdebt":51.0, "nomGDP":0.3},
+{"country":"Tuvalu","incgroup":"spr_lic","year":2017, "totdebt":37.0, "privdebt":0.0, "nomGDP":0.0},
+{"country":"Armenia","incgroup":"fm_eme","year":2017, "totdebt":53.5, "privdebt":0.0, "nomGDP":11.5},
+{"country":"Azerbaijan","incgroup":"fm_eme","year":2017, "totdebt":89.2, "privdebt":39.4, "nomGDP":40.7},
+{"country":"Belarus","incgroup":"fm_eme","year":2017, "totdebt":53.4, "privdebt":0.0, "nomGDP":54.4},
+{"country":"Albania","incgroup":"fm_eme","year":2017, "totdebt":112.6, "privdebt":36.2, "nomGDP":13.1},
+{"country":"Georgia","incgroup":"fm_eme","year":2017, "totdebt":111.0, "privdebt":59.8, "nomGDP":15.2},
+{"country":"Kazakhstan","incgroup":"fm_eme","year":2017, "totdebt":68.7, "privdebt":69.8, "nomGDP":159.4},
+{"country":"Kyrgyz Republic","incgroup":"spr_lic","year":2017, "totdebt":77.3, "privdebt":27.7, "nomGDP":7.6},
+{"country":"Bulgaria","incgroup":"fm_eme","year":2017, "totdebt":145.2, "privdebt":77.0, "nomGDP":56.9},
+{"country":"Moldova","incgroup":"spr_lic","year":2017, "totdebt":51.0, "privdebt":38.2, "nomGDP":9.6},
+{"country":"Russian Federation","incgroup":"fm_eme","year":2017, "totdebt":83.7, "privdebt":81.5, "nomGDP":1577.5},
+{"country":"Tajikistan","incgroup":"spr_lic","year":2017, "totdebt":61.0, "privdebt":17.4, "nomGDP":7.1},
+{"country":"China, Mainland","incgroup":"fm_eme","year":2017, "totdebt":253.6, "privdebt":81.5, "nomGDP":12014.6},
+{"country":"Turkmenistan","incgroup":"fm_eme","year":2017, "totdebt":28.8, "privdebt":0.0, "nomGDP":37.9},
+{"country":"Ukraine","incgroup":"fm_eme","year":2017, "totdebt":149.3, "privdebt":52.4, "nomGDP":112.1},
+{"country":"Uzbekistan","incgroup":"spr_lic","year":2017, "totdebt":24.3, "privdebt":0.0, "nomGDP":48.8},
+{"country":"Czech Republic","incgroup":"fm_adv","year":2016, "totdebt":117.8, "privdebt":62.0, "nomGDP":195.1},
+{"country":"Slovak Republic","incgroup":"fm_adv","year":2017, "totdebt":151.6, "privdebt":66.5, "nomGDP":96.0},
+{"country":"Estonia","incgroup":"fm_adv","year":2017, "totdebt":126.7, "privdebt":92.9, "nomGDP":26.0},
+{"country":"Latvia","incgroup":"fm_adv","year":2017, "totdebt":126.9, "privdebt":71.4, "nomGDP":30.3},
+{"country":"Serbia","incgroup":"fm_eme","year":2017, "totdebt":109.9, "privdebt":43.1, "nomGDP":41.4},
+{"country":"Montenegro, Rep. of","incgroup":"fm_eme","year":2017, "totdebt":67.2, "privdebt":0.0, "nomGDP":4.8},
+{"country":"Hungary","incgroup":"fm_eme","year":2017, "totdebt":156.9, "privdebt":54.3, "nomGDP":139.2},
+{"country":"Lithuania","incgroup":"fm_adv","year":2017, "totdebt":104.7, "privdebt":62.0, "nomGDP":47.3},
+{"country":"Mongolia","incgroup":"fm_eme","year":2017, "totdebt":164.4, "privdebt":49.1, "nomGDP":11.1},
+{"country":"Croatia","incgroup":"fm_eme","year":2017, "totdebt":206.7, "privdebt":62.3, "nomGDP":54.8},
+{"country":"Slovenia","incgroup":"fm_adv","year":2017, "totdebt":155.7, "privdebt":52.7, "nomGDP":48.9},
+{"country":"Macedonia, FYR","incgroup":"fm_eme","year":2017, "totdebt":131.0, "privdebt":70.0, "nomGDP":11.4},
+{"country":"Bosnia and Herzegovina","incgroup":"fm_eme","year":2017, "totdebt":39.5, "privdebt":0.0, "nomGDP":18.2},
+{"country":"Poland","incgroup":"fm_eme","year":2017, "totdebt":132.0, "privdebt":61.7, "nomGDP":524.8},
+{"country":"Kosovo","incgroup":"fm_eme","year":2017, "totdebt":21.2, "privdebt":0.0, "nomGDP":7.1},
+{"country":"Romania","incgroup":"fm_eme","year":2017, "totdebt":62.6, "privdebt":44.0, "nomGDP":211.9}]
+	
+
+			//Get data values --> needed for scales
+			var x_max=d3.max(data, function(d){return d.totdebt;}), x_min=d3.min(data,function(d){return d.totdebt;}),
+				r_max=d3.max(data,function(d){return (d.nomGDP/50);}), r_min=d3.min(data, function(d){return (d.nomGDP);});
+				console.log(r_max, r_min);
+				//r_max=d3.max(data,function(d){return (d.nomGDP);}), r_min=d3.min(data, function(d){return (d.nomGDP);});
+
+			//Function creates a distance threshold
+			var origin_check=function(a, b){
+				if (a<b){return b;}
+				else {return a;}
+			}
+
+			//Get width and set hight
+			var width=$('.chart').parent().width(), height=width/1.3, format=d3.format(",.0f"); // changed height=width/2
+
+			//Set all other variables
+			var	distance={top:55,right:width*0.04,bottom:25,left:width*0.0},
+				labelDistance_lx=-14, labelDistance_ly=height*0.3,//100, 0.17
+				labelDistance_lx2=width*0.41, labelDistance_ly2=height*0.09,
+				
+				labelDistance_rx=labelDistance_lx, labelDistance_ry=labelDistance_ly+10,//height*0.198,//115,  //-labelDistance_ly,
+				labelDistance_rx2=labelDistance_lx2, labelDistance_ry2=labelDistance_ly2+10,
+				labelDistance=0, //distance of label with axis, gaussian line, dots and tooltip
+				svgDistance_x=distance.left, svgDistance_y=distance.top,
+				xDomain_min=0, xDomain_max=x_max+50, //must fix the +100
+				xRange_min=0, xRange_max=width-svgDistance_x-distance.right-distance.left,
+				yDomain_min=0, yDomain_max=100,
+				yRange_min=0, yRange_max=height,
+				rDomain_min=r_min, rDomain_max=r_max,
+				rRange_min=0, rRange_max=2*xRange_max/data.length, //change coefficient for bubbles size 
+				colorCategory=d3.schemeCategory20,  /*** D3 color scale ***/
+				tickNo=5,
+				xAxisDistance_x=0, xAxisDistance_y=height*0.15,//100,//labelDistance,
+				gaussianDistance_x=0, gaussianDistance_y=xAxisDistance_y*3, //changed 0.2 
+				labelDistance_gx=labelDistance_lx, labelDistance_gy=gaussianDistance_y,
+				simDistribution=gaussianDistance_y, // here we change the distribution of the bubbles around x axis
+				strength_cnt=0.1, // used for simulation // =1 gravity 0.5
+				alpha_cnt=0.7, // originally 0.8 animation of the bubbles 0.5
+				dotDistance_x=0, dotDistance_y=0,
+				rectWidth=220, rectHeight=90,
+				font_size=12+'px',
+				rect_rx=width*0.008, rect_ry=width*0.008,
+				triangleHeight=rectHeight/7,
+				triangleA_x=3/7*rectWidth, triangleA_y=rectHeight,
+				triangleB_x=4/7*rectWidth, triangleB_y=rectHeight,
+				triangleC_x=1/2*rectWidth, triangleC_y=rectHeight+triangleHeight,
+				tooltipDistance_x=rectWidth/2, tooltipDistance_y=rectHeight+triangleHeight,
+				textA_x=1/25*rectWidth, textA_y=1/5*rectHeight,
+				textB_x=textA_x, textB_y=2*textA_y,
+				textC_x=textA_x, textC_y=3*textA_y,
+				textD_x=textA_x, textD_y=4*textA_y,
+				textE_x=textA_x, textE_y=5*textA_y,
+				text1_x=rectWidth-textA_x, text1_y=textB_y,
+				text2_x=text1_x, text2_y=textC_y,
+				text3_x=text2_x, text3_y=textD_y,
+				text4_x=text3_x, text4_y=textE_y,
+				rectOpacity=0.92,//0.95, //0.89,
+				stdDeviation=2.5, ///2.5
+				gDistance_adv_x=gaussianDistance_x, gDistance_adv_y=1.3*width/4, // change distance to top
+				gDistance_eme_x=gaussianDistance_x, gDistance_eme_y=2.6*width/4, 
+				gDistance_lidc_x=gaussianDistance_x, gDistance_lidc_y=3.6*width/4, //3.4
+				labelDistance_advx_up=labelDistance_lx, labelDistance_advy_up=gDistance_adv_y-labelDistance_ly*0.06, 
+				labelDistance_advx_dw=labelDistance_lx, labelDistance_advy_dw=gDistance_adv_y+labelDistance_ly*0.06, 
+				labelDistance_emex_up=labelDistance_lx, labelDistance_emey_up=gDistance_eme_y-labelDistance_ly*0.06, 
+				labelDistance_emex_dw=labelDistance_lx, labelDistance_emey_dw=gDistance_eme_y+labelDistance_ly*0.06, 
+				labelDistance_lidcx_up=labelDistance_lx, labelDistance_lidcy_up=gDistance_lidc_y-labelDistance_ly*0.06, 
+				labelDistance_lidcx_dw=labelDistance_lx, labelDistance_lidcy_dw=gDistance_lidc_y+labelDistance_ly*0.06,
+				durationTime=100, //600
+
+				// text under label 
+				label2Distance_advx_dw = labelDistance_advx_dw-100;
+				label2Distance_advy_dw =labelDistance_advy_dw+32;
+				label2Distance_advy_dw_l2 =labelDistance_advy_dw+44;
+				label2Distance_advy_dw_l3 =labelDistance_advy_dw+56;
+				label2Distance_advy_dw_l4 =labelDistance_advy_dw+68;
+				label2Distance_emex_dw =labelDistance_emex_dw-100;
+				label2Distance_emey_dw =labelDistance_emey_dw+32;
+				label2Distance_emey_dw_l2 =labelDistance_emey_dw+44;
+				label2Distance_emey_dw_l3 =labelDistance_emey_dw+56;
+				label2Distance_emey_dw_l4 =labelDistance_emey_dw+68;
+				label2Distance_lidcx_dw =labelDistance_lidcx_dw-100;
+				label2Distance_lidcy_dw =labelDistance_lidcy_dw+32;
+				label2Distance_lidcy_dw_l2 =labelDistance_lidcy_dw+44;
+				label2Distance_lidcy_dw_l3 =labelDistance_lidcy_dw+56;
+				label2Distance_lidcy_dw_l4 =labelDistance_lidcy_dw+68;
+				label2Distance_lidcy_dw_l5 =labelDistance_lidcy_dw+80;
+				label2Distance_lidcy_dw_l6 =labelDistance_lidcy_dw+92;
+				label2Distance_lidcy_dw_l7 =labelDistance_lidcy_dw+104;
+				label2Distance_lidcy_dw_l8 =labelDistance_lidcy_dw+116;
+				label2Distance_lidcy_dw_l9 =labelDistance_lidcy_dw+128;
+
+				mean=d3.mean(data,function(d){return +d.totdebt}),
+				
+				//mean_x0=mean, mean_x1=mean_x0,
+				mean_x0=225, mean_x1=mean_x0,
+				//mean_y0=gaussianDistance_y*0.57, mean_y1=gaussianDistance_y*1.3, //lines length
+				mean_y0=gaussianDistance_y*0.45, mean_y1=gaussianDistance_y*1.6, //lines length 1.58
+				bands_y2=xAxisDistance_y*5,//gaussianDistance_y*1.55,
+				mean_strwdth=2, // verticale lines width
+				//mean_txt_x=mean_x0+10, mean_txt_y=mean_y0-9, // average 
+				//mean_val_x=mean_x0+6, mean_val_y=mean_y0, // 122%
+				mean_txt_x=mean_x0, mean_txt_y=mean_y1+17, // average 
+				mean_val_x=mean_x0, mean_val_y=mean_y1+29, // 122%
+
+				nested=d3.nest().key(function(d){return d.incgroup;}).entries(data),
+
+				mean_adv=d3.mean(nested[0].values,function(d){return +d.totdebt}),
+				//mean_adv_x0=mean_adv, mean_adv_x1=mean_adv_x0,
+				mean_adv_x0=266, mean_adv_x1=mean_adv_x0,
+				mean_adv_y0=gDistance_adv_y*0.45, mean_adv_y1=gDistance_adv_y*1.6, // adv eco averagne line
+				mean_adv_txt_x=mean_adv_x0, mean_adv_txt_y=mean_adv_y1+13,
+				mean_adv_val_x=mean_adv_x0, mean_adv_val_y=mean_adv_y1+25,
+
+				mean_eme=d3.mean(nested[1].values,function(d){return +d.totdebt}),
+				//mean_eme_x0=mean_eme, mean_eme_x1=mean_eme_x0,
+				mean_eme_x0=168, mean_eme_x1=mean_eme_x0,
+				mean_eme_y0=gDistance_eme_y*0.85, mean_eme_y1=gDistance_eme_y*1.15, // average line
+				mean_eme_txt_x=mean_eme_x0, mean_eme_txt_y=mean_eme_y1+13, //-17
+				mean_eme_val_x=mean_eme_x0, mean_eme_val_y=mean_eme_y1+25, //-5
+
+				mean_lidc=d3.mean(nested[2].values,function(d){return +d.totdebt}),
+				mean_lidc_x0=mean_lidc, mean_lidc_x1=mean_lidc_x0,
+				mean_lidc_x0=77, mean_lidc_x1=mean_lidc_x0,
+				mean_lidc_y0=gDistance_lidc_y*0.90, mean_lidc_y1=gDistance_lidc_y*1.1,
+				mean_lidc_txt_x=mean_lidc_x0, mean_lidc_txt_y=mean_lidc_y1+13,
+				mean_lidc_val_x=mean_lidc_x0, mean_lidc_val_y=mean_lidc_y1+25,
+
+				//colors=['rgb(84, 39, 136)','rgb(153, 142, 195)','rgb(216, 218, 235)','rgb(254, 224, 182)','rgb(241, 163, 64)'],
+				//colors=['#466e12','#77bc1f','#009bde','#002060'], //green and blue
+				colors=['#466e12','#77bc1f','#C5E0B4','#A9DDEB','#009bde','#002060'], //light to dark blue
+				//colors2=['#C5E0B4','#A9DDEB'],
+				colors3=['#009bde','#002060'],
+				//colors=['#C8C8C8','#FFE699','#C5E0B4','#A9DDEB','#009bde','#002060'],
+				//color2=['#C8C8C8'], //,'#C00074','#8431a6'],  /*** change colors here ***/
+				//colors=['#A9DDEB','#9999FF','#C09bde','#004a97','#002060'],
+				//colors=['#C8C8C8','#FFD166','#C6DABF','rgb(125, 207, 182)','rgb(0, 178, 202)','rgb(29, 78, 137)'],
+				legendDistance_x=0, legendDistance_y= -18, //y=2.2*height/2.5, //x=100
+				legendRectWidth=width*0.06, legendRectHeight=8, //legendRectWidth=width*0.2,
+				legendRectWidthSmall=25,
+				legendRect_y=height*0.01, //0
+				legendRect_NA_y=height*0.1,
+				legendRect_ticks_y0=legendRect_y, legendRect_ticks_y1=legendRect_y*3, legendRect_ticks_strokewdth=1,
+				legendRectDistance_text_x=100, legendRectDistance_text_y=height*0.01,//legendRectWidth/7, //-120
+				legendRectDistance_text_NA_y=80;
+				legendRect_no_y=legendRectDistance_text_y+height*0.03+(legendRect_ticks_y1-legendRect_ticks_y0)+5,
+				//legendCrlDistance_text_x=500,legendCrlDistance_text_y=legendRectDistance_text_y,
+				//legendCrlDistance_text_x=legendRectWidth*8,legendCrlDistance_text_y= legendRectDistance_text_y,//height*0.7,//////
+				legendCrlDistance_text_x=width*0.58,legendCrlDistance_text_y= legendRectDistance_text_y,
+				//legendCrl_cx=legendRectWidth*10,legendCrl_cy=legendCrlDistance_text_y,
+				legendCrl_cx=width*0.7,legendCrl_cy=legendRectDistance_text_NA_y-10,
+				legendCrl_line_x1=legendCrl_cx,legendCrl_line_x2=legendCrl_cx*1.11,
+				//legendCrl_text_x=legendCrl_cx*1.12;
+				legendCrl_text_x=width*0.78;
+				// legend for grey bubbles
+				legendDistance_x2=200, legendDistance_y2=2.2*height/2.4,
+				legendRectWidth2=50, legendRectHeight2=8,
+				legendRect_y2=0,
+				legendRect_ticks_y02=0, legendRect_ticks_y12=15, legendRect_ticks_strokewdth2=1,
+				legendRectDistance_text_x2=-95, legendRectDistance_text_y2=legendRectWidth/7,
+				legendRect_no_y2=legendRectDistance_text_y2+(legendRect_ticks_y12-legendRect_ticks_y02)+5,
+				legendCrlDistance_text_x2=350,legendCrlDistance_text_y2=legendRectDistance_text_y2,
+				legendCrl_cx2=legendCrlDistance_text_x2+190,legendCrl_cy2=legendCrlDistance_text_y2,
+				legendCrl_line_x12=legendCrl_cx2,legendCrl_line_x22=legendCrl_cx2+50,
+				legendCrl_text_x2=legendCrl_cx2+50+5;
+
+				legendNB_y=mean_y1+150;
+				//legendNB_y=xAxisDistance_y*9;
+				legendNB_x=labelDistance_gx;
+
+				legendNB_y2=labelDistance_lidcy_up+160;
+
+				console.log(mean);
+
+			// variables changed for mobile devices 
+
+			if (width < 500 ) {
+				console.log(width);
+				//labelDistance_lx=-14, 
+				labelDistance_lx=-10;
+				labelDistance_rx=labelDistance_lx;
+				labelDistance_lx2=width*0.41, labelDistance_ly2=height*0.0,
+				labelDistance_rx2=labelDistance_lx2, labelDistance_ry2=labelDistance_ly2+5,
+				// legend position 
+				legendDistance_x=0; legendDistance_y=-18;//legendDistance_y= -width*0.1; //y=2.2*height/2.5, //x=100
+				legendRectWidth=width*0.07; legendRectHeight=8; //legendRectWidth=width*0.2,
+				legendRectWidthSmall=25;
+				legendRect_y=0.5;//legendRect_y=height*0.03; //0
+				//legendRect_NA_y=height*0.15; //0
+				legendRect_NA_y=12;
+				legendRect_ticks_y0=legendRect_y;//legendRect_ticks_y0=legendRect_y; 
+				legendRect_ticks_y1=legendRect_y*18; 
+				//legendRect_ticks_y1=legendRect_y*2.3;
+				legendRect_ticks_strokewdth=1;
+				legendRectDistance_text_x=labelDistance_lx-4; legendRectDistance_text_y=0.1;//legendRectDistance_text_y=height*0.07;//legendRectWidth/7, //-120
+				//legendRectDistance_text_NA_y=height*0.21;
+				legendRectDistance_text_NA_y= 25;
+				legendRect_no_y=15;//legendRect_no_y=legendRectDistance_text_y+(legendRect_ticks_y1-legendRect_ticks_y0)+3;
+				//legendCrlDistance_text_x=500,legendCrlDistance_text_y=legendRectDistance_text_y,
+				legendCrlDistance_text_x=legendRectWidth*8;legendCrlDistance_text_y= legendRectDistance_text_y;//height*0.7,//////
+				legendCrl_cx=legendCrlDistance_text_x+40,legendCrl_cy=legendRectDistance_text_NA_y-25;
+				legendCrl_line_x1=legendCrl_cx; legendCrl_line_x2=legendCrl_cx*1.11;
+				legendCrl_text_x=legendCrl_cx*1.12;
+
+				//legendNB_y = mean_y1+100;
+				legendNB_x=-55;
+				legendNB_y2=labelDistance_lidcy_up+width*0.5;
+
+				// vertical lines 
+				mean_y0=gaussianDistance_y*0.45; mean_y1=gaussianDistance_y*1.6; //lines length
+				bands_y2=xAxisDistance_y*5,//gaussianDistance_y*1.5,
+
+				// label vertical line 
+				mean_txt_x=mean_x0+10; mean_txt_y=mean_y1+10; // average 
+				mean_val_x=mean_x0+6; mean_val_y=mean_y1+17; // 122%
+
+				mean_adv_x0=266, mean_adv_x1=mean_adv_x0,
+				mean_adv_y0=gDistance_adv_y*0.60, mean_adv_y1=gDistance_adv_y*1.6, // adv eco averagne line
+				mean_adv_txt_x=mean_adv_x0, mean_adv_txt_y=mean_adv_y1+6, //-11
+				mean_adv_val_x=mean_adv_x0, mean_adv_val_y=mean_adv_y1+13, //-3
+
+				mean_eme_x0=168, mean_eme_x1=mean_eme_x0,
+				mean_eme_y0=gDistance_eme_y*0.95, mean_eme_y1=gDistance_eme_y*1.3, // average line
+				mean_eme_txt_x=mean_eme_x0, mean_eme_txt_y=mean_eme_y1+6,
+				mean_eme_val_x=mean_eme_x0, mean_eme_val_y=mean_eme_y1+13,
+
+				mean_lidc_x0=mean_lidc, mean_lidc_x1=mean_lidc_x0,
+				mean_lidc_x0=77, mean_lidc_x1=mean_lidc_x0,
+				mean_lidc_y0=gDistance_lidc_y*1.1, mean_lidc_y1=gDistance_lidc_y*1.35,
+				mean_lidc_txt_x=mean_lidc_x0, mean_lidc_txt_y=mean_lidc_y1+6,
+				mean_lidc_val_x=mean_lidc_x0, mean_lidc_val_y=mean_lidc_y1+13,
+
+
+				// group view x axis 
+				gDistance_adv_x=gaussianDistance_x; gDistance_adv_y=1.4*width/4; // change distance to top
+				gDistance_eme_x=gaussianDistance_x; gDistance_eme_y=2.9*width/4;
+				gDistance_lidc_x=gaussianDistance_x; gDistance_lidc_y=4.4*width/4; //3.4
+				labelDistance_advx_up=labelDistance_lx; labelDistance_advy_up=gDistance_adv_y-labelDistance_ly*0.1; 
+				labelDistance_advx_dw=labelDistance_lx; labelDistance_advy_dw=gDistance_adv_y+labelDistance_ly*0.1; 
+				labelDistance_emex_up=labelDistance_lx; labelDistance_emey_up=gDistance_eme_y-labelDistance_ly*0.1; 
+				labelDistance_emex_dw=labelDistance_lx; labelDistance_emey_dw=gDistance_eme_y+labelDistance_ly*0.1; 
+				labelDistance_lidcx_up=labelDistance_lx; labelDistance_lidcy_up=gDistance_lidc_y-labelDistance_ly*0.1; 
+				labelDistance_lidcx_dw=labelDistance_lx; labelDistance_lidcy_dw=gDistance_lidc_y+labelDistance_ly*0.1;
+
+				// text under label 
+				label2Distance_advx_dw = labelDistance_advx_dw-50;
+				label2Distance_advy_dw =labelDistance_advy_dw+20;
+				label2Distance_advy_dw_l2 =labelDistance_advy_dw+28;
+				label2Distance_advy_dw_l3 =labelDistance_advy_dw+36;
+				label2Distance_advy_dw_l4 =labelDistance_advy_dw+44;
+				label2Distance_emex_dw =labelDistance_emex_dw-50;
+				label2Distance_emey_dw =labelDistance_emey_dw+20;
+				label2Distance_emey_dw_l2 =labelDistance_emey_dw+28;
+				label2Distance_emey_dw_l3 =labelDistance_emey_dw+36;
+				label2Distance_emey_dw_l4 =labelDistance_emey_dw+44;
+				label2Distance_lidcx_dw =labelDistance_lidcx_dw-50;
+				label2Distance_lidcy_dw =labelDistance_lidcy_dw+10;
+				label2Distance_lidcy_dw_l2 =labelDistance_lidcy_dw+18;
+				label2Distance_lidcy_dw_l3 =labelDistance_lidcy_dw+26;
+				label2Distance_lidcy_dw_l4 =labelDistance_lidcy_dw+34;
+				label2Distance_lidcy_dw_l5 =labelDistance_lidcy_dw+42;
+				label2Distance_lidcy_dw_l6 =labelDistance_lidcy_dw+50;
+				label2Distance_lidcy_dw_l7 =labelDistance_lidcy_dw+58;
+				label2Distance_lidcy_dw_l8 =labelDistance_lidcy_dw+66;
+				label2Distance_lidcy_dw_l9 =labelDistance_lidcy_dw+74;
+
+				// tooltip size
+				rectWidth=120; rectHeight=70;
+				rect_rx=width*0.008, rect_ry=width*0.008,
+				triangleHeight=rectHeight/7;
+				triangleA_x=3/8*rectWidth; triangleA_y=rectHeight;
+				triangleB_x=5/8*rectWidth; triangleB_y=rectHeight;
+				triangleC_x=1/2*rectWidth; triangleC_y=rectHeight+triangleHeight;
+				tooltipDistance_x=rectWidth/2; tooltipDistance_y=rectHeight+triangleHeight;
+				textA_x=1/25*rectWidth; textA_y=1/5*rectHeight; 
+				textB_x=textA_x; textB_y=2*textA_y;
+				textC_x=textA_x; textC_y=3*textA_y;
+				textD_x=textA_x; textD_y=4*textA_y;
+				textE_x=textA_x; textE_y=5*textA_y; 
+				text1_x=rectWidth-textA_x; text1_y=textB_y;
+				text2_x=text1_x; text2_y=textC_y;
+				text3_x=text2_x; text3_y=textD_y;
+				text4_x=text3_x; text4_y=textE_y;
+
+			}
+
+
+
+			//Create SVG element
+			var svg=d3.select('body').select('.chart').append('svg').style('width', width).style('height',height).style('overflow','visible').append('g').attr('transform','translate('+svgDistance_x+','+svgDistance_y+')'); 
+
+
+			//Create the scales for x,y,r and color
+			var xScale=d3.scaleLinear().domain([xDomain_min,xDomain_max]).range([xRange_min,xRange_max]),
+				yScale=d3.scaleLinear().domain([yDomain_min,yDomain_max]).range([yRange_min,yRange_max]),
+				rScale=d3.scaleSqrt().domain([rDomain_min,rDomain_max]).range([width/240,width/70]); // bubbles scale range
+				//rScale=d3.scaleLinear().domain([rDomain_min,rDomain_max]).range([rRange_min,rRange_max]);
+				//color=d3.scaleOrdinal().domain(['spr_lic','fm_eme','fm_adv']).range(['rgb(244,109,67)','rgb(213,62,79)','rgb(158,1,66)']);
+			
+			//Create the Axis
+			var xAxis=d3.axisTop().scale(xScale).ticks(tickNo,d3.format(',d')).tickFormat(function(d){return d+'%'});
+			svg.append('g').attr('class','axis').attr('transform','translate('+xAxisDistance_x+','+xAxisDistance_y+')').call(xAxis);
+			
+			//Create grey bands for overview
+			var band1=svg.append('g').attr('class','band1');
+			band1.append('line').attr('class','band1').attr('x1',xScale(50)).attr('x2',xScale(50)).attr('y1',xAxisDistance_y).attr('y2',bands_y2).attr('stroke','#e6e6e6').attr('stroke-width',xScale(100));
+			band1.append('line').attr('class','band1').attr('x1',xScale(150)).attr('x2',xScale(150)).attr('y1',xAxisDistance_y).attr('y2',bands_y2).attr('stroke','#F0F0F0').attr('stroke-width',xScale(100));
+			band1.append('line').attr('class','band1').attr('x1',xScale(250)).attr('x2',xScale(250)).attr('y1',xAxisDistance_y).attr('y2',bands_y2).attr('stroke','#e6e6e6').attr('stroke-width',xScale(100));
+			band1.append('line').attr('class','band1').attr('x1',xScale(350)).attr('x2',xScale(350)).attr('y1',xAxisDistance_y).attr('y2',bands_y2).attr('stroke','#F0F0F0').attr('stroke-width',xScale(100));
+			band1.append('line').attr('class','band1').attr('x1',xScale(450)).attr('x2',xScale(450)).attr('y1',xAxisDistance_y).attr('y2',bands_y2).attr('stroke','#e6e6e6').attr('stroke-width',xScale(100));
+
+			//Create grey bands for view by income group
+			var band2=svg.append('g').attr('class','band2').attr('opacity',0);
+			band2.append('line').attr('class','band2').attr('x1',xScale(50)).attr('x2',xScale(50)).attr('y1',xAxisDistance_y).attr('y2',label2Distance_lidcy_dw_l9).attr('stroke','#F0F0F0').attr('stroke-width',xScale(100));
+			band2.append('line').attr('class','band2').attr('x1',xScale(150)).attr('x2',xScale(150)).attr('y1',xAxisDistance_y).attr('y2',label2Distance_lidcy_dw_l9).attr('stroke','#F8F8F8').attr('stroke-width',xScale(100));
+			band2.append('line').attr('class','band2').attr('x1',xScale(250)).attr('x2',xScale(250)).attr('y1',xAxisDistance_y).attr('y2',label2Distance_lidcy_dw_l9).attr('stroke','#F0F0F0').attr('stroke-width',xScale(100));
+			band2.append('line').attr('class','band2').attr('x1',xScale(350)).attr('x2',xScale(350)).attr('y1',xAxisDistance_y).attr('y2',label2Distance_lidcy_dw_l9).attr('stroke','#F8F8F8').attr('stroke-width',xScale(100));
+			band2.append('line').attr('class','band2').attr('x1',xScale(450)).attr('x2',xScale(450)).attr('y1',xAxisDistance_y).attr('y2',label2Distance_lidcy_dw_l9).attr('stroke','#F0F0F0').attr('stroke-width',xScale(100));
+			//'y2',gDistance_lidc_y+0.9*width/4
+
+			//Setting line for distribution
+			var line=svg.append('g').attr('class','gaussian_line').attr('transform','translate('+gaussianDistance_x+','+gaussianDistance_y+')');
+			line.append('line').attr('x1', xScale.range()[0]).attr('x2', xScale.range()[1]);
+
+			//Setting line for distribution
+			var adv_line=svg.append('g').attr('class','gaussian_line_adv').attr('transform','translate('+gDistance_adv_x+','+gDistance_adv_y+')').attr('opacity',0),
+				eme_line=svg.append('g').attr('class','gaussian_line_eme').attr('transform','translate('+gDistance_eme_x+','+gDistance_eme_y+')').attr('opacity',0),
+				lidc_line=svg.append('g').attr('class','gaussian_line_lidc').attr('transform','translate('+gDistance_lidc_x+','+gDistance_lidc_y+')').attr('opacity',0);
+			adv_line.append('line').attr('x1', xScale.range()[0]).attr('x2', xScale.range()[1]);
+			eme_line.append('line').attr('x1', xScale.range()[0]).attr('x2', xScale.range()[1]);
+			lidc_line.append('line').attr('x1', xScale.range()[0]).attr('x2', xScale.range()[1]);
+			
+			//Create the force simulation
+			var simulation=d3.forceSimulation()
+				.force('x',d3.forceX(function(d){return xScale(d.totdebt);}).strength(strength_cnt))
+				.force('y',d3.forceY(simDistribution))
+				.force('collide',d3.forceCollide(function(d){return rScale(d.nomGDP);}))
+				.alpha(alpha_cnt)
+				.on('end',function(){return $('#ctg').prop("disabled", false);});
+
+			//Create color legend // changed order of paint to not overflow tooltip 
+			legend=svg.append('g').attr('class','legend').attr('transform','translate('+legendDistance_x+','+legendDistance_y+')');
+			legendCol=legend.append('g').attr('class','legendColor');
+			legendCol.append('text').attr('class','legendText').attr('x',legendDistance_x).attr('y',legendDistance_y).style('text-anchor','start').text('Share of private debt').style('font-weight','bold');
+
+			
+			legendCol.append('g').attr('class','legendRects').selectAll('rect').data(colors).enter().append('rect').attr('x',function(d,i){return legendRectWidth*(i)}).attr('y',legendRect_y-15).attr('width',legendRectWidth).attr('height',legendRectHeight).attr('fill',function(d){return d});
+			//legendCol.append('g').attr('class','legendRects').selectAll('rect').data(colors2).enter().append('rect').attr('x',function(d,i){return legendRectWidthSmall*(i+6)}).attr('y',legendRect_y).attr('width',legendRectWidthSmall).attr('height',legendRectHeight).attr('fill',function(d){return d});
+			//legendCol.append('g').attr('class','legendRects').selectAll('rect').data(colors3).enter().append('rect').attr('x',function(d,i){return legendRectWidth*(i+4)}).attr('y',legendRect_y).attr('width',legendRectWidth).attr('height',legendRectHeight).attr('fill',function(d){return d});
+
+			legendCol.append('g').attr('class','legendHorizon').selectAll('line').data([20,40,50,60,80]).enter().append('line').attr('x1',function(d,i){return legendRectWidth*(i+1)}).attr('x2',function(d,i){return legendRectWidth*(i+1)}).attr('y1',legendRect_ticks_y0-15).attr('y2',legendRect_ticks_y1-15).attr('stroke-width',legendRect_ticks_strokewdth).attr('stroke','black');
+			legendCol.append('g').attr('class','legendNo').selectAll('text').data(['20%','40%','50%','60%','80%']).enter().append('text').attr('x',function(d,i){return legendRectWidth*(i+1)}).attr('y',legendRect_no_y-15).style('text-anchor','middle').text(function(d){return d});
+
+			// legend grey bubbles
+			legendCol.append('text').attr('class','legendText').attr('x',legendDistance_x).attr('y',legendRectDistance_text_NA_y-15).style('text-anchor','start').text('Not available').style('font-weight','bold'); 
+			legendCol.append('g').attr('class','legendRects').selectAll('rect').data(['#707C7C']).enter().append('rect').attr('x',legendRectWidth*0).attr('y',legendRect_NA_y).attr('width',legendRectWidth).attr('height',legendRectHeight).attr('fill',function(d){return d});	
+			
+
+			// create texte before bubbles so tooltip show up well
+			//Create lines and text for current view
+			var firstLine=svg.append('g').attr('class','infoCurrent');
+			
+			if (width < 350 ) {
+			//FIRST -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			firstLine.append('path').attr('d', 'M '+xScale.range()[0]+' '+(mean_y1+20-5-10)+' L '+xScale.range()[0]+' '+(mean_y1+20-10)+' L '+xScale(50)+' '+(mean_y1+20-10)+' L '+xScale(50)+' '+(mean_y1+20+15-15)+' M '+xScale(50)+' '+(mean_y1+20-10)+' L '+xScale(100)+' '+(mean_y1+20-10)+' L '+xScale(100)+' '+(mean_y1+20-5-10)).attr('fill','none').attr('stroke','#ccc').attr('stroke-width',mean_strwdth/2);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('About 53 percent').attr('text-anchor','middle').attr('x',xScale(45)).attr('y',mean_y1+20+10); //51.32743362831859
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('of countries in').attr('text-anchor','middle').attr('x',xScale(45)).attr('y',mean_y1+20+20);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('the sample have').attr('text-anchor','middle').attr('x',xScale(45)).attr('y',mean_y1+20+30);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('debt ratios less').attr('text-anchor','middle').attr('x',xScale(45)).attr('y',mean_y1+20+40);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('than 100 percent.').attr('text-anchor','middle').attr('x',xScale(45)).attr('y',mean_y1+20+50);
+			//SECOND----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('The average total').attr('text-anchor','start').attr('x',xScale(mean_x0)-30).attr('y',mean_y1+20+10);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('debt ratio in the').attr('text-anchor','start').attr('x',xScale(mean_x0)-30).attr('y',mean_y1+20+20);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('sample is 224% but').attr('text-anchor','start').attr('x',xScale(mean_x0)-30).attr('y',mean_y1+20+30);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('ratios vary widely').attr('text-anchor','start').attr('x',xScale(mean_x0)-30).attr('y',mean_y1+20+40);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('accross countries.').attr('text-anchor','start').attr('x',xScale(mean_x0)-30).attr('y',mean_y1+20+50);
+			//THIRD-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			//var country_x1=552.1032773554447,country_y1=195.28471160089114,country_r;
+			var country_x1=xScale(mean_x0)+width*0.207,country_y1=mean_y0,country_r;
+			data.forEach(function(d,i){if(d.country=='Belgium'){console.log(d,d.x);country_r=rScale(d.nomGDP);}});
+			firstLine.append('line').attr('x1',country_x1).attr('y1',-country_r+gaussianDistance_y).attr('x2',country_x1).attr('y2',mean_y1+20).attr('stroke','#ccc').attr('stroke-width',mean_strwdth/2);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('Each circle').attr('text-anchor','middle').attr('x',country_x1+15).attr('y',mean_y1+20+10);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('represents a country').attr('text-anchor','middle').attr('x',country_x1+27).attr('y',mean_y1+20+20);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('sized by the nominal').attr('text-anchor','middle').attr('x',country_x1+27).attr('y',mean_y1+20+30);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('GDP. Belgium has a nominal').attr('text-anchor','middle').attr('x',country_x1+37).attr('y',mean_y1+20+40);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('GDP of $468 Billion.').attr('text-anchor','middle').attr('x',country_x1+25).attr('y',mean_y1+20+50);
+
+			//Note for grey bubbles 
+			//firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('NB: countries with no information regarding the share of private debt are colored in grey.').attr('text-anchor','start').attr('x',legendNB_x).attr('y',mean_y1+20+15+70);
+			//firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('of private debt are colored in grey.').attr('text-anchor','start').attr('x',legendNB_x+12).attr('y',legendNB_y+10);
+
+			//Create lines and text for incgroup view
+			var secondLine=svg.append('g').attr('class','infoIncgroup');
+			//FIRST -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('Although private debt').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',labelDistance_advy_dw+10);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('levels have been').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',labelDistance_advy_dw+17);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('lowered in advanced').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',labelDistance_advy_dw+24);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('economies overall').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',labelDistance_advy_dw+31);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('debt remains high 266').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',labelDistance_advy_dw+38);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('percent on average.').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',labelDistance_advy_dw+45);
+			//SECOND----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('Debt levels are widely').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',labelDistance_emey_dw+10);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('dispersed in emerging').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',labelDistance_emey_dw+17);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('market economies.').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',labelDistance_emey_dw+24);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('Systematically').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',labelDistance_emey_dw+31);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('important EMEs such').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',labelDistance_emey_dw+38);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('as China have high').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',labelDistance_emey_dw+45);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('debt.').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',labelDistance_emey_dw+52);
+			//secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('high debt.').attr('text-anchor','start').attr('x',labelDistance_emex_dw-100).attr('y',labelDistance_emey_dw+90);
+			//THIRD-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('Financial deepening').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('and improved market').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l2);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('access over the last ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l3);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('few years have led to ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l4);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('higher private and ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l5);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('public debt ratios in ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l6);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('low-income countries,').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l7);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('although debt levels').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l8);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('remain generally low.').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l9);
+			//execute opacity zero
+			secondLine.style('opacity',0);
+
+			//Note for grey bubbles 
+			//secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('NB: countries with no information regarding the share of private debt are colored in grey.').attr('text-anchor','start').attr('x',legendNB_x).attr('y',label2Distance_lidcy_dw_l6+20);	
+			} else {
+			//FIRST -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			firstLine.append('path').attr('d', 'M '+xScale.range()[0]+' '+(mean_y1+20-5)+' L '+xScale.range()[0]+' '+(mean_y1+20)+' L '+xScale(50)+' '+(mean_y1+20)+' L '+xScale(50)+' '+(mean_y1+20+10)+' M '+xScale(50)+' '+(mean_y1+20)+' L '+xScale(100)+' '+(mean_y1+20)+' L '+xScale(100)+' '+(mean_y1+20-5)).attr('fill','none').attr('stroke','#ccc').attr('stroke-width',mean_strwdth/2);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('About 53 percent').attr('text-anchor','middle').attr('x',xScale(45)).attr('y',mean_y1+20+15+10); //51.32743362831859
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('of countries in the').attr('text-anchor','middle').attr('x',xScale(45)).attr('y',mean_y1+20+15+22);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('sample have debt ratios').attr('text-anchor','middle').attr('x',xScale(45)).attr('y',mean_y1+20+15+34);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('less than 100 percent.').attr('text-anchor','middle').attr('x',xScale(45)).attr('y',mean_y1+20+15+46);
+			//SECOND----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('The average total debt').attr('text-anchor','start').attr('x',xScale(mean_x0)-40).attr('y',mean_y1+20+15+10);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('ratio in the sample is').attr('text-anchor','start').attr('x',xScale(mean_x0)-40).attr('y',mean_y1+20+15+22);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('224% but ratios vary').attr('text-anchor','start').attr('x',xScale(mean_x0)-40).attr('y',mean_y1+20+15+34);
+			firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('widely accross countries.').attr('text-anchor','start').attr('x',xScale(mean_x0)-40).attr('y',mean_y1+20+15+46);
+			//THIRD-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			
+
+			//Note for grey bubbles 
+			//firstLine.append('text').attr('class','text').attr('font-style', 'italic').text('NB: countries with no information regarding the share of private debt are colored in grey.').attr('text-anchor','start').attr('x',legendNB_x).attr('y',legendNB_y);
+
+			//Create lines and text for incgroup view
+			var secondLine=svg.append('g').attr('class','infoIncgroup');
+			//FIRST -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('Although private debt').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',label2Distance_advy_dw);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('levels have been').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',label2Distance_advy_dw_l2);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('lowered in advanced').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',label2Distance_advy_dw_l3);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('economies overall debt').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',label2Distance_advy_dw_l4);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('remains high 266').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',label2Distance_advy_dw_l4+12);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('percent on average.').attr('text-anchor','start').attr('x',label2Distance_advx_dw).attr('y',label2Distance_advy_dw_l4+24);
+			//SECOND----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('Debt levels are widely').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',label2Distance_emey_dw);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('dispersed in emerging').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',label2Distance_emey_dw_l2);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('market economies. ').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',label2Distance_emey_dw_l3);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('Systematically ').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',label2Distance_emey_dw_l4);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('important EMEs such').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',label2Distance_emey_dw_l4+12);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('as China have high').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',label2Distance_emey_dw_l4+24);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('debt.').attr('text-anchor','start').attr('x',label2Distance_emex_dw).attr('y',label2Distance_emey_dw_l4+36);
+			//secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('high debt.').attr('text-anchor','start').attr('x',labelDistance_emex_dw-100).attr('y',labelDistance_emey_dw+90);
+			//THIRD-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('Financial deepening ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('and improved market ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l2);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('access over the last ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l3);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('few years have led to ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l4);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('higher private and ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l5);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('public debt ratios in ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l6);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('low-income countries, ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l7);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('although debt levels ').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l8);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('remain generally low.').attr('text-anchor','start').attr('x',label2Distance_lidcx_dw).attr('y',label2Distance_lidcy_dw_l9);
+			//var country_x1=552.1032773554447,country_y1=195.28471160089114,country_r;
+			var country_x1=xScale(mean_x0)+width*0.207,country_y1=mean_y0,country_r;
+			data.forEach(function(d,i){if(d.country=='Japan'){console.log(d,d.x);country_r=rScale(d.nomGDP);}});
+			secondLine.append('line').attr('x1',country_x1+115).attr('y1',-country_r+gaussianDistance_y).attr('x2',country_x1+115).attr('y2',mean_y1+20+10+450).attr('stroke','#ccc').attr('stroke-width',mean_strwdth/2);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('Each circle represents').attr('text-anchor','middle').attr('x',country_x1+135).attr('y',mean_y1+20+15+10+450);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('a country sized by the').attr('text-anchor','middle').attr('x',country_x1+135).attr('y',mean_y1+20+15+22+450);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('nominal GDP. Japan has a').attr('text-anchor','middle').attr('x',country_x1+135+4).attr('y',mean_y1+20+15+34+450);
+			secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('  nominal GDP of $4,873 Billion.').attr('text-anchor','middle').attr('x',country_x1+140).attr('y',mean_y1+20+15+46+450);
+			
+			//execute opacity zero
+			secondLine.style('opacity',0);
+
+			//Note for grey bubbles 
+			//secondLine.append('text').attr('class','text').attr('font-style', 'italic').text('NB: countries with no information regarding the share of private debt are colored in grey.').attr('text-anchor','start').attr('x',legendNB_x).attr('y',legendNB_y2);	
+
+			}
+			//Creating circles
+			var dot=svg.append('g').attr('class','dots').attr('transform','translate('+dotDistance_x+','+dotDistance_y+')').selectAll('.dot').data(data).enter().append('circle').attr('class','dot').style('stroke','#000').style('stroke-width',.1).attr('x',function(d){return xScale(d.totdebt);}).attr('r',function(d){return rScale(d.nomGDP);}).style('fill',function(d){
+					if(d.privdebt==null){return '#707C7C'}
+					else if(d.privdebt>=0 & d.privdebt<20){return colors[0]}
+					else if(d.privdebt>=20 & d.privdebt<40){return colors[1]}
+						else if(d.privdebt>=40 & d.privdebt<50){return colors[2]}
+					else if(d.privdebt>=50 & d.privdebt<60){return colors[3]}
+					else if(d.privdebt>=60 & d.privdebt<80){return colors[4]}
+					else {return colors[5]}
+				})
+				.on('mouseover', function(d){
+					tooltip.style('display',null);
+					d3.select(this).style('filter','url(#glow');
+				})
+				.on('mouseout',function(){
+					tooltip.style('display','none');
+					d3.select(this).style('filter','none');
+				})
+				.on('mousemove',function(d){
+					var yPos=d3.select(this).attr('cy')
+						xPos=d3.select(this).attr('cx')
+						rPos=d3.select(this).attr('r');
+
+					tooltip.attr('transform','translate('+(parseFloat(xPos)-tooltipDistance_x)+','+(parseFloat(yPos)-parseFloat(rPos)-tooltipDistance_y)+')');
+					tooltip.selectAll('text').style('font-size',font_size);
+					tooltip.select('text.name').attr('x', textA_x).attr('y',textA_y).style('font-weight','bold').style('fill','#262626').text(d.country+' ('+d.year+')');
+					/*** quick fix for those two coutries tooltip out of screen ***/
+					if (d.country=='Luxembourg'){					
+						tooltip.select('text.tdebt').attr('x',textB_x).attr('y',textB_y).style('fill','#262626').text('Total Debt (% of GDP): ');
+							tooltip.select('text.ndebt').attr('x',textC_x).attr('y',textC_y).style('fill','#262626').text('Nominal GDP (Billion of USD): ' );
+							tooltip.select('text.share').attr('x',textD_x).attr('y',textD_y).style('fill','#262626').text('Private debt (% of total debt): ');
+					tooltip.select('text.tdebt_no').attr('x',text1_x-20).attr('y',text1_y).style('fill','#262626').style('font-weight','bold').text(format(d.totdebt));
+					tooltip.select('text.ndebt_no').attr('x',text2_x-20).attr('y',text2_y).style('fill','#262626').style('font-weight','bold').text(format(d.nomGDP));
+					tooltip.select('text.share_no').attr('x',text3_x-20).attr('y',text3_y).style('fill','#262626').style('font-weight','bold').text(d.privdebt);
+						}
+					else if (d.country=='Cyprus'){					
+						tooltip.select('text.tdebt').attr('x',textB_x).attr('y',textB_y).style('fill','#262626').text('Total Debt (% of GDP): ');
+							tooltip.select('text.ndebt').attr('x',textC_x).attr('y',textC_y).style('fill','#262626').text('Nominal GDP (Billion of USD): ');
+							tooltip.select('text.share').attr('x',textD_x).attr('y',textD_y).style('fill','#262626').text('Private debt (% of total debt): ');
+							tooltip.select('text.tdebt_no').attr('x',text1_x-20).attr('y',text1_y).style('fill','#262626').style('font-weight','bold').text(format(d.totdebt));
+					tooltip.select('text.ndebt_no').attr('x',text2_x-20).attr('y',text2_y).style('fill','#262626').style('font-weight','bold').text(format(d.nomGDP));
+					tooltip.select('text.share_no').attr('x',text3_x-20).attr('y',text3_y).style('fill','#262626').style('font-weight','bold').text(d.privdebt);}
+					else {
+					tooltip.select('text.tdebt').attr('x',textB_x).attr('y',textB_y).style('fill','#262626').text('Total Debt (% of GDP):');
+					tooltip.select('text.ndebt').attr('x',textC_x).attr('y',textC_y).style('fill','#262626').text('Nominal GDP (Billion of USD):');
+					tooltip.select('text.share').attr('x',textD_x).attr('y',textD_y).style('fill','#262626').text('Private debt (% of total debt): ');
+
+					tooltip.select('text.tdebt_no').attr('x',text1_x).attr('y',text1_y).style('fill','#262626').style('font-weight','bold').text(format(d.totdebt));
+					tooltip.select('text.ndebt_no').attr('x',text2_x).attr('y',text2_y).style('fill','#262626').style('font-weight','bold').text(format(d.nomGDP));
+					tooltip.select('text.share_no').attr('x',text3_x).attr('y',text3_y).style('fill','#262626').style('font-weight','bold').text(d.privdebt);
+					if(d.privdebt==null){return tooltip.select('text.share_no').attr('x',text3_x).attr('y',text3_y).style('fill','#262626').style('font-weight','bold').text('N/A');}
+				}
+				});
+
+				//Create the xAxis label
+				if (width < 350) {
+					svg.append('text').attr('class','x label left').text('Total Debt').attr('text-anchor','start').attr('x',labelDistance_lx2).attr('y',labelDistance_ly2);
+					svg.append('text').attr('class','x label right').text('(% of GDP)').attr('text-anchor','start').attr('x',labelDistance_rx2).attr('y',labelDistance_ry2);
+				} else {
+					svg.append('text').attr('class','x label left').text('Total Gross Debt').attr('text-anchor','start').attr('x',labelDistance_lx2).attr('y',labelDistance_ly2);
+					svg.append('text').attr('class','x label right').text(' (Percent of GDP)').attr('text-anchor','start').attr('x',labelDistance_rx2).attr('y',labelDistance_ry2);
+				}
+			
+			//Create the GaussDist label
+			svg.append('text').attr('class','g label').text('All Countries').attr('text-anchor','end').attr('x',labelDistance_gx).attr('y',labelDistance_gy);
+			//Create the GaussDist by IncGroup labels
+			svg.append('text').attr('class','adv label').text('Advanced').attr('text-anchor','end').attr('x',labelDistance_advx_up).attr('y',labelDistance_advy_up).style('opacity',0);
+			svg.append('text').attr('class','adv label').text('Economies').attr('text-anchor','end').attr('x',labelDistance_advx_dw).attr('y',labelDistance_advy_dw).style('opacity',0);
+			svg.append('text').attr('class','eme label').text('Emerging').attr('text-anchor','end').attr('x',labelDistance_emex_up).attr('y',labelDistance_emey_up).style('opacity',0);
+			svg.append('text').attr('class','eme label').text('Markets').attr('text-anchor','end').attr('x',labelDistance_emex_dw).attr('y',labelDistance_emey_dw).style('opacity',0);
+			svg.append('text').attr('class','lidc label').text('Low Income').attr('text-anchor','end').attr('x',labelDistance_lidcx_up).attr('y',labelDistance_lidcy_up).style('opacity',0);
+			svg.append('text').attr('class','lidc label').text('Countries').attr('text-anchor','end').attr('x',labelDistance_lidcx_dw).attr('y',labelDistance_lidcy_dw).style('opacity',0);
+
+			//Vertical Average Lines
+			mean_all=svg.append('g').attr('class','means');
+			mean_all.append('line').attr('class','mean_all').attr('x1',xScale(mean_x0)).attr('x2',xScale(mean_x1)).attr('y1',mean_y0).attr('y2',mean_y1).attr('stroke','#000').attr('stroke-width',mean_strwdth);
+			mean_all.append('text').attr('class','avg_all_txt').text('Average').attr('x',xScale(mean_txt_x)).attr('y',mean_txt_y).style('font-weight','bold').style('text-anchor','middle');
+			//mean_all.append('text').attr('class','avg_all_val').text(format(mean)+'%').attr('x',xScale(mean_val_x)).attr('y',mean_val_y).style('font-weight','bold').style('text-anchor','middle');
+			mean_all.append('text').attr('class','avg_all_val').text(225+'%').attr('x',xScale(mean_val_x)).attr('y',mean_val_y).style('font-weight','bold').style('text-anchor','middle');
+
+			mean_1=svg.append('g').attr('class','means_adv').style('opacity',0);
+			mean_1.append('line').attr('class','mean_adv').attr('x1',xScale(mean_adv_x0)).attr('x2',xScale(mean_adv_x1)).attr('y1',mean_adv_y0).attr('y2',mean_adv_y1).attr('stroke','#000').attr('stroke-width',mean_strwdth);
+			mean_1.append('text').attr('class','avg_adv_txt').text('Average').attr('x',xScale(mean_adv_txt_x)).attr('y',mean_adv_txt_y).style('font-weight','bold').style('text-anchor','middle');
+			//mean_1.append('text').attr('class','avg_adv_val').text(format(mean_adv)+'%').attr('x',xScale(mean_adv_val_x)).attr('y',mean_adv_val_y).style('font-weight','bold').style('text-anchor','middle');
+			mean_1.append('text').attr('class','avg_adv_val').text(266+'%').attr('x',xScale(mean_adv_val_x)).attr('y',mean_adv_val_y).style('font-weight','bold').style('text-anchor','middle');
+
+			mean_2=svg.append('g').attr('class','means_eme').style('opacity',0);
+			mean_2.append('line').attr('class','mean_eme').attr('x1',xScale(mean_eme_x0)).attr('x2',xScale(mean_eme_x1)).attr('y1',mean_eme_y0).attr('y2',mean_eme_y1).attr('stroke','#000').attr('stroke-width',mean_strwdth);
+			mean_2.append('text').attr('class','avg_eme_txt').text('Average').attr('x',xScale(mean_eme_txt_x)).attr('y',mean_eme_txt_y).style('font-weight','bold').style('text-anchor','middle');
+			//mean_2.append('text').attr('class','avg_eme_val').text(format(mean_eme)+'%').attr('x',xScale(mean_eme_val_x)).attr('y',mean_eme_val_y).style('font-weight','bold').style('text-anchor','middle');
+			mean_2.append('text').attr('class','avg_eme_val').text(168+'%').attr('x',xScale(mean_eme_val_x)).attr('y',mean_eme_val_y).style('font-weight','bold').style('text-anchor','middle');
+
+			mean_3=svg.append('g').attr('class','means_lidc').style('opacity',0);
+			mean_3.append('line').attr('class','mean_lidc').attr('x1',xScale(mean_lidc_x0)).attr('x2',xScale(mean_lidc_x1)).attr('y1',mean_lidc_y0).attr('y2',mean_lidc_y1).attr('stroke','#000').attr('stroke-width',mean_strwdth);
+
+			/* fix the overlaping text for extra small device */
+			if (width < 350) {
+				mean_3.append('text').attr('class','avg_lidc_txt').text('Average').attr('x',xScale(mean_lidc_txt_x)).attr('y',mean_lidc_txt_y+2).style('font-weight','bold').style('text-anchor','middle');
+				mean_3.append('text').attr('class','avg_lidc_val').text(77+'%').attr('x',xScale(mean_lidc_val_x)).attr('y',mean_lidc_val_y+2).style('font-weight','bold').style('text-anchor','middle');
+			} else {
+				mean_3.append('text').attr('class','avg_lidc_txt').text('Average').attr('x',xScale(mean_lidc_txt_x)).attr('y',mean_lidc_txt_y).style('font-weight','bold').style('text-anchor','middle');
+				mean_3.append('text').attr('class','avg_lidc_val').text(77+'%').attr('x',xScale(mean_lidc_val_x)).attr('y',mean_lidc_val_y).style('font-weight','bold').style('text-anchor','middle');
+			}
+		
+
+						
+			//legendCol.append('g').attr('class','legendHorizon').selectAll('line').data([25,50,75]).enter().append('line').attr('x1',function(d,i){return legendRectWidth*(i+2)}).attr('x2',function(d,i){return legendRectWidth*(i+2)}).attr('y1',legendRect_ticks_y0).attr('y2',legendRect_ticks_y1).attr('stroke-width',legendRect_ticks_strokewdth).attr('stroke','black');
+			//legendCol.append('g').attr('class','legendNo').selectAll('text').data(['25%','50%','75%']).enter().append('text').attr('x',function(d,i){return legendRectWidth*(i+2)}).attr('y',legendRect_no_y).style('text-anchor','middle').text(function(d){return d});
+			//legendCol.append('g').attr('class','legendRects').selectAll('rect').data(colors2).enter().append('rect').attr('x',function(d,i){return legendRectWidthSmall*(i+6)}).attr('y',legendRect_y).attr('width',legendRectWidthSmall).attr('height',legendRectHeight).attr('fill',function(d){return d});
+			//legendCol.append('g').attr('class','legendHorizon').selectAll('line').data([50,60]).enter().append('line').attr('x1',function(d,i){return legendRectWidthSmall*(i+7)}).attr('x2',function(d,i){return legendRectWidthSmall*(i+7)}).attr('y1',legendRect_ticks_y0).attr('y2',legendRect_ticks_y1).attr('stroke-width',legendRect_ticks_strokewdth).attr('stroke','black');
+			//legendCol.append('g').attr('class','legendNo').selectAll('text').data(['50%','60%']).enter().append('text').attr('x',function(d,i){return legendRectWidthSmall*(i+7)}).attr('y',legendRect_no_y).style('text-anchor','middle').text(function(d){return d});
+			//legendCol.append('g').attr('class','legendRects').selectAll('rect').data(colors3).enter().append('rect').attr('x',function(d,i){return legendRectWidth*(i+4)}).attr('y',legendRect_y).attr('width',legendRectWidth).attr('height',legendRectHeight).attr('fill',function(d){return d});
+			//legendCol.append('g').attr('class','legendHorizon').selectAll('line').data([80]).enter().append('line').attr('x1',function(d,i){return legendRectWidth*(i+5)}).attr('x2',function(d,i){return legendRectWidth*(i+5)}).attr('y1',legendRect_ticks_y0).attr('y2',legendRect_ticks_y1).attr('stroke-width',legendRect_ticks_strokewdth).attr('stroke','black');
+			//legendCol.append('g').attr('class','legendNo').selectAll('text').data(['80%']).enter().append('text').attr('x',function(d,i){return legendRectWidth*(i+5)}).attr('y',legendRect_no_y).style('text-anchor','middle').text(function(d){return d});
+			
+			
+			//legendCol.append('g').attr('class','legendHorizon').selectAll('line').data([0,20,40,60,80]).enter().append('line').attr('x1',function(d,i){return legendRectWidth*(i+2)}).attr('x2',function(d,i){return legendRectWidth*(i+2)}).attr('y1',legendRect_ticks_y0).attr('y2',legendRect_ticks_y1).attr('stroke-width',legendRect_ticks_strokewdth).attr('stroke','black');
+			//legendCol.append('g').attr('class','legendNo').selectAll('text').data(['0%','20%','40%','60%','80%']).enter().append('text').attr('x',function(d,i){return legendRectWidth*(i+2)}).attr('y',legendRect_no_y).style('text-anchor','middle').text(function(d){return d});
+
+			// legend for grey bubble
+			//legend2=svg.append('g').attr('class','legend2').attr('transform','translate('+legendDistance_x2+','+legendDistance_y2+')');
+			//legendCol=legend.append('g').attr('class','legendColor2');
+			//legendCol.append('text').attr('class','legendText2').attr('x',legendRectDistance_text_x2).attr('y',legendRectDistance_text_y2).style('text-anchor','right').text('No data'); //.style('font-weight','bold')
+			//legendCol.append('g').attr('class','legendRects2').selectAll('rect').data(color2).enter().append('rect').attr('x',function(d,i){return legendRectWidth*(i-1)}).attr('y',legendRect_y).attr('width',legendRectWidth).attr('height',legendRectHeight).attr('fill',function(d){return d});
+			//legendCol.append('g').attr('class','legendHorizon2').selectAll('line').data(['N/a']).enter().append('line').attr('x1',function(d,i){return legendRectWidth*(i+1)}).attr('x2',function(d,i){return legendRectWidth*(i+1)}).attr('y1',legendRect_ticks_y0).attr('y2',legendRect_ticks_y1).attr('stroke-width',legendRect_ticks_strokewdth).attr('stroke','black');
+			//legendCol.append('g').attr('class','legendNo2').selectAll('text').data(['N/A']).enter().append('text').attr('x',function(d,i){return legendRectWidth2*(i+1)}).attr('y',legendRect_no_y2).style('text-anchor','middle').text(function(d){return d});
+
+
+			legendCrl=legend.append('g').attr('class','legendCircle');
+			if (width < 350) {
+				legendCrl.append('text').attr('class','legendText').attr('x',legendCrlDistance_text_x).attr('y',legendDistance_y).style('text-anchor','middle').text('Nominal GDP').style('font-weight','bold');
+				legendCrl.append('text').attr('class','legendText').attr('x',legendCrlDistance_text_x).attr('y',legendDistance_y+10).style('text-anchor','middle').text('(Billion of USD)').style('font-weight','bold'); 
+
+			} else {
+				legendCrl.append('text').attr('class','legendText').attr('x',legendCrlDistance_text_x).attr('y',legendDistance_y).style('text-anchor','middle').text('Nominal GDP').style('font-weight','bold');
+				legendCrl.append('text').attr('class','legendText').attr('x',legendCrlDistance_text_x).attr('y',legendDistance_y+10).style('text-anchor','middle').text('(Billion of USD)').style('font-weight','bold');
+			}
+			
+			legendCrl.append('g').attr('class','legcircles').selectAll('circle').data([10000,1000,10]).enter().append('circle').attr('cx',legendCrl_cx).attr('cy',function(d){return legendCrl_cy-rScale(d)}).attr('r',function(d){return rScale(d)}).style('fill','#efefef').style('stroke-width',0.5).style('stroke','#000').style('stroke-dasharray',2);
+			legendCrl.append('g').attr('class','linecircles').selectAll('line').data([10000,1000,10]).enter().append('line').attr('x1',legendCrl_line_x1).attr('x2',legendCrl_line_x2).attr('y1',function(d){return legendCrl_cy-2*rScale(d)}).attr('y2',function(d){return legendCrl_cy-2*rScale(d)}).attr('stroke-width',0.2).attr('stroke','#000');
+			legendCrl.append('text').attr('x',legendCrl_text_x).attr('y',legendCrl_cy-2*rScale(10000)).style('text-anchor','left').text('10000');
+			legendCrl.append('text').attr('x',legendCrl_text_x).attr('y',legendCrl_cy-2*rScale(1000)+3).style('text-anchor','left').text('1000');
+			legendCrl.append('text').attr('x',legendCrl_text_x).attr('y',legendCrl_cy-2*rScale(10)+5).style('text-anchor','left').text('10');
+
+
+			
+			//create tooltip
+			var tooltip=svg.append('g').attr('class','tooltips').style('display','none');
+			tooltip.append('path')
+				.attr('fill','white')
+				.style('stroke','grey')
+				.style('filter','url(#glow)')
+				.style('opacity',rectOpacity)
+				.attr('d', function(){
+					return 'M '+ 0 + ' ' + 0 +
+						' L' + rectWidth + ' ' + 0 +
+						' L' + rectWidth + ' ' + rectHeight +
+						' L' + (triangleB_x) + ' ' + (triangleB_y) +
+						' L' + (triangleC_x) + ' ' + (triangleC_y) +
+						' L' + (triangleA_x) + ' ' + (triangleA_y) +
+						' L' + 0 + ' ' + rectHeight+
+						' z';
+				});
+			//Append all the text elements of the tooltip
+			tooltip.append('text').attr('dy','.35em').attr("text-anchor", "right").attr('class','name');
+			tooltip.append('text').attr('dy','.35em').attr("text-anchor", "start").attr('class','tdebt');
+			tooltip.append('text').attr('dy','.35em').attr("text-anchor", "start").attr('class','ndebt');
+			tooltip.append('text').attr('dy','.35em').attr("text-anchor", "start").attr('class','share');
+
+			tooltip.append('text').attr('dy','.35em').attr("text-anchor", "end").attr('class','tdebt_no');
+			tooltip.append('text').attr('dy','.35em').attr("text-anchor", "end").attr('class','ndebt_no');
+			tooltip.append('text').attr('dy','.35em').attr("text-anchor", "end").attr('class','share_no');
+		
+			//Feed the force simulation all our data
+			//simulation.nodes(data).on('tick',ticked);
+			function ticked(d){
+				dot
+					.attr('cx',function(d){return d.x;})
+					.attr('cy',function(d){return d.y;})
+			}
+
+			//Create the Glow Filter
+			var defs = svg.append('defs');
+			var filter= defs.append('filter').attr('id','glow');
+			filter.append('feGaussianBlur').attr('class','blur').attr('stdDeviation',stdDeviation).attr('result','coloredBlur');
+			var feMerge=filter.append('feMerge');
+			feMerge.append('feMergeNode').attr('in','coloredBlur');
+			feMerge.append('feMergeNode').attr('in','SourceGraphic');	
+
+ //#################################################################################
+ 			// save div element containing chart as image 
+			/*$(function() { 
+   				 $("#btnSave").on('click',function() { 
+        			html2canvas($("#widget"), {
+            			onrendered: function(canvas) {
+                		theCanvas = canvas;
+                		document.body.appendChild(canvas);
+                		//var imageData = theCanvas.toDataURL("image/png");
+                		//var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+    					//$("#btnSave").attr("download", "your_pic_name.png").attr("href", newData);
+						
+                		// Convert and download as image 
+                		Canvas2Image.saveAsPNG(canvas); 
+                		$("#img-out").append(canvas);
+                		// Clean up 
+                		document.body.removeChild(canvas);
+            			}
+        			});
+    			});
+			}); */
+			$("#btnSave").click(function() { submit_download_form("png"); });
+			window.onload= allInOne();
+			$(document).on('click','button',function(){
+				if($(this).attr('id')=='btnSave'){
+						svgToPng();
+				}
+				else if($(this).attr('id')=='ctg'){
+					transitionToCtg();
+				}
+				else {
+					transitionToMain();
+				}
+			});
+			
+			function allInOne() {
+				//transitionToMain();
+				transitionToCtg();
+				//setTimeout(function(){
+				//	transitionToCtg();
+				//}, 4000);
+				
+			}
+				
+			function transitionToCtg(){
+			
+				//Change opacity : do it firts so the tooltip will show up well
+				mean_all.style('opacity',0);
+				mean_1.transition().duration(durationTime).style('opacity',1); mean_2.transition().duration(durationTime).style('opacity',1); mean_3.transition().duration(durationTime).style('opacity',1);
+				//move legend
+				//legend.attr('transform','translate('+legendDistance_x+','+legendDistance_y+')');
+				//text info
+				firstLine.style('opacity',0);
+				secondLine.transition().duration(durationTime).style('opacity',1);
+				height=width*1.3; //change height for view by income group
+				//d3.select(svg.node().parentNode).style('height',height);
+				d3.select(svg.node().parentNode).style('height',height);
+				//d3.select(this).style('height',height);
+				//d3.select('body').select('.chart').append('svg').style('width', width).style('height',height).style('overflow','visible');
+				legendDistance_y=6.8*height/7.5;
+				$('#active').prop("disabled", true);
+				line.attr('opacity',0);
+				//gen n axis
+				//d3.selectAll('band1').transition().duration(durationTime).attr('opacity',0);
+				//d3.selectAll('band2').attr('opacity',1);
+				band2.transition().duration(durationTime).style('opacity',1);
+				//d3.selectAll('band1').style('opacity',0);
+				//d3.selectAll('band2').style('opacity',1);				
+				adv_line.transition().duration(durationTime).attr('opacity',1);
+				eme_line.transition().duration(durationTime).attr('opacity',1);
+				lidc_line.transition().duration(durationTime).attr('opacity',1);
+				d3.select('.g.label').style('opacity',0);
+				d3.selectAll('.adv.label').transition().duration(durationTime).style('opacity',1);
+				d3.selectAll('.eme.label').transition().duration(durationTime).style('opacity',1);
+				d3.selectAll('.lidc.label').transition().duration(durationTime).style('opacity',1);
+				var sim1=d3.forceSimulation()
+						.force('x',d3.forceX(function(d){return xScale(d.totdebt);}).strength(strength_cnt))
+						.force('y',d3.forceY(gDistance_adv_y))
+						.force('collide',d3.forceCollide(function(d){return rScale(d.nomGDP);}))
+						.alpha(alpha_cnt)
+						.on('end',function(){return $('#active').prop("disabled", false);}),
+					sim2=d3.forceSimulation(nested[1].values)
+						.force('x',d3.forceX(function(d){return xScale(d.totdebt);}).strength(strength_cnt))
+						.force('y',d3.forceY(gDistance_eme_y+width*0.01)) //gDistance_eme_y
+						.force('collide',d3.forceCollide(function(d){return rScale(d.nomGDP);}))
+						.alpha(alpha_cnt)
+						.on('end',function(){return $('#active').prop("disabled", false);}),
+					sim3=d3.forceSimulation(nested[2].values)
+						.force('x',d3.forceX(function(d){return xScale(d.totdebt);}).strength(strength_cnt))
+						.force('y',d3.forceY(gDistance_lidc_y+width*0.015)) //gDistance_lidc_y
+						.force('collide',d3.forceCollide(function(d){return rScale(d.nomGDP);}))
+						.alpha(alpha_cnt)
+						.on('end',function(){return $('#active').prop("disabled", false);});
+				sim1.nodes(nested[0].values).on('tick',ticked);
+				sim2.nodes(nested[1].values).on('tick',ticked);
+				sim3.nodes(nested[2].values).on('tick',ticked);
+
+
+			}
+			function transitionToMain(){
+				height=width/1.3;
+				legendDistance_y=2.2*height/2.5;
+				d3.select(svg.node().parentNode).style('height',height);
+				console.log('height: '+ height + svg.node().parentNode);
+				$('#ctg').prop("disabled", true);
+				//change opacity of Axis
+				
+				line.transition().duration(durationTime).attr('opacity',1);
+				//remove n axis
+				adv_line.attr('opacity',0); eme_line.attr('opacity',0); lidc_line.attr('opacity',0);
+				d3.select('.g.label').transition().duration(durationTime).style('opacity',1);
+				d3.selectAll('.adv.label').transition().duration(durationTime).style('opacity',0);
+				d3.selectAll('.eme.label').transition().duration(durationTime).style('opacity',0);
+				d3.selectAll('.lidc.label').transition().duration(durationTime).style('opacity',0);
+				band2.style('opacity',0);
+				//simulation=d3.forceSimulation()
+					//.force('x',d3.forceX(function(d){return xScale(d.totdebt);}).strength(strength_cnt))
+					//.force('y',d3.forceY(simDistribution))
+					//.force('collide',d3.forceCollide(function(d){return rScale(d.nomGDP);}))
+					//.alpha(alpha_cnt)
+					//.on('end',function(){return $('#ctg').prop("disabled", false);});
+				//simulation.nodes(data).on('tick',ticked);	
+				//Change opacity
+				mean_all.transition().duration(durationTime).style('opacity',1);
+				mean_1.style('opacity',0); mean_2.style('opacity',0); mean_3.style('opacity',0);
+				//move legend
+				//legend.attr('transform','translate('+legendDistance_x+','+legendDistance_y+')');
+				//text info
+				firstLine.transition().duration(durationTime).style('opacity',1);
+				secondLine.style('opacity',0);
+			}
+
+			// export chart as png image
+			
+			function svgToPng() {
+            	if(width < 500) {
+            		saveSvgAsPng(d3.select('svg').node(), 'chart.png', {top:-20, left: -120, width:750, backgroundColor: 'white'});
+            	} else {
+            		saveSvgAsPng(d3.select('svg').node(), 'chart.png', {top:-20, left: -120, width:1050, backgroundColor: 'white'});
+            	}
+        	}
+       		 function svgToSvg() {
+           		 svgAsDataUri(d3.select('svg').node(), {}, function(uri) {
+                	console.log('uri', uri);
+            	});
+        	}
+			//document.getElementById('erasable').innerHTML = "";
+		</script>
+	</body>
+</html>
