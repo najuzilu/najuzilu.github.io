@@ -1,0 +1,76 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12px;
+	font-weight: 300;
+	fill: #4A4A4A;
+}
+
+.form-select {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 12px;
+}
+
+.btn-group button {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 12px;
+	color: #212529;
+	border: 1px solid #ced4da;
+  border-radius: .25rem;
+}
+
+.btn-outline-secondary.active, .btn-outline-secondary:active {
+	color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+  outline: none;
+  box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);
+}
+
+.btn-outline-secondary.hover, .btn-outline-secondary:hover {
+	color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+
+.titles, h2, h3 {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 400;
+}
+
+.subheader{
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #949494;
+}
+
+.chart {
+	margin-top: 30px;
+}
+
+.label {
+	text-align: center;
+}
+
+.legendCircle text {
+	margin-top: 2.5px;
+	margin-bottom: 2.5px;
+}
+
+.axis path {
+	fill:none;
+	stroke:none;
+}
+
+.axis line {
+	fill: none;
+	stroke:#000000;
+	shape-rendering: crispEdges;
+}
+
+.gaussian_line, .gaussian_line_adv,
+	.gaussian_line_up_mid, .gaussian_line_low_mid,
+	.gaussian_line_low line {
+	stroke:#ccc;
+	shape-rendering: crispEdges;
+	stroke-dasharray: 1,1;
+}
