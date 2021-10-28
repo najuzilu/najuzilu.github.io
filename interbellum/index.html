@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+	<meta charset="utf-8">
+
+	<!-- Google fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800,700,300' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+	<!-- D3 -->
+	<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+	<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- Bootstrap Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+
+    <!-- HighCharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+	<!-- <script src="js/util.js"></script>
+    <script src="js/legend.js"></script> -->
+    <script src="js/meta.js"></script>
+	<script src="js/create.js"></script>
+	<script src="js/main.js"></script>
+
+	<script src="data/data.js"></script>
+
+	<link href="css/style.css" type="text/css" rel="stylesheet">
+    
+    <body>
+        <div class="chartWrapper">
+            <div id="cont" class="container-fluid">
+                <!-- Intro -->
+                <div class="row" style="padding-left: 5px;">
+                    <div class="col-sm-4 column">
+                        <div class="row" style="padding-top: 50px;">
+                            <div class="col-md-12 column text-center">
+                                <h2 class="titles">Interbellum<br/>
+                                Intergovernment Debt</h2>
+                                <span class="subheader">A visual exploration.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 column">
+                        <div class="row">
+                            <div class="col-md-12 column" style="padding-top: 50px;">
+                                <p><span style="font-size: 12px;">
+                                    World War I (WWI) was one of the deadliest war and inflicted heavy costs and losses on some 
+                                    of the belligerents. Taxation only partially financed massive military expenditures. 
+                                    An important share of military expenditures and—in the post-war era—of reconstruction costs 
+                                    was financed through bilateral government loans. After the United States entered the war, it
+                                    provided much of the needed financing, either directly through US Treasury advances or mediated
+                                    through the United Kingdom. At the end of the war, the US and the UK were the only two 
+                                    net creditor countries. By then, Germany had accumulated very limited external debt.
+                                </span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <hr>
+    
+                <!-- Indicator, year, view buttons -->
+                <div class="row text-center">
+                    <!-- display view -->
+                    <div class="col-sm-2 offset-sm-1 column text-center" style="padding-bottom: 15px;">
+                        <div id="buttonWrapper" class="btn-group" role="group" arial-label="Color">
+                            <button id="country" type="button" class="btn btn-outline-secondary active">Country View</button>
+                            <button id="flow" type="button" class="btn btn-outline-secondary">Flow View</button>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- chart -->
+                <div class="container">
+                    <div class="row chart">
+                    </div>
+                </div>
+    
+                <!-- insights -->
+                <div class="row" style="padding-top: 30px;">
+                    <div class="col-sm-11 offset-sm-1">
+                        <h3>Some interesting insights</h3>
+                    </div>
+                    <div class="col-sm-5 column offset-sm-1">
+                        <p class="insights">
+                            WWI was the first war where the notion of war reparations was introduced to finance costs
+                            associated with inflicted losses. The losses were very different amongst countries. Human
+                            losses (and associated war pension costs) were particularly severe for Germany, France, 
+                            Belgium, the UK. Belgium and France suffered the heaviest physical damages. In addition, 
+                            Germany had destroyed large sways of industrial capacity in Belgium and the North of France, 
+                            preventing effective competition with the Ruhr industries.    
+                        </p>
+                        <p class="insights">
+                            The amount of war reparations owed by Germany was to be negotiated taking several factors 
+                            into account: (i) the estimation of physical costs; (ii) the possible inclusion of war-related
+                            pensions; (iii) Germany’s repayment capacity; (iv) linkages between the repayment of war 
+                            reparations and of interallied debts; and (v) the existence of enforcement mechanisms for the
+                            repayment. Different perspectives and priorities among allied countries led to several rounds
+                            of negotiations over war reparations. Overtime, the lack of agreement on a substantial 
+                            reduction of inter-related debt pave the way for bilateral defaults and contributed to the
+                            great depression.
+                        </p>
+                        <p class="insights">
+                            Key milestones in the history of WWI-related bilateral debts include:
+                            <ul>
+                                <li>
+                                    1918—Armistice: the UK failed to convince the US to cancel war-related interallied debts
+                                    on the ground it was political debt. The US considered it as commercial debt to be repaid
+                                    in full.
+                                </li>
+                                <li>
+                                    1919—The Versailles Treaty: no agreement was reached on the amount of war reparations. 
+                                    While Keynes and the US had argued for lower amounts that could be more easily repaid, 
+                                    the UK succeeded in including pensions. The Treaty included a provision to set up a war 
+                                    reparation commission to finalize the amount of war reparations. To enforce and guarantee peace,
+                                    a security pact was agreed between France and the UK, but was withdrawn when the US Senate 
+                                    later rejected the Treaty.
+                                </li>
+                                <li>
+                                    1921—The London Schedule: The war reparation commission settled in for an amount of 132 million
+                                    German Marks with two series of bonds (the so-called A and B bonds) totaling 50 million German 
+                                    Marks issued immediately, and a third category of interest-free bonds (C bonds) in the amount 
+                                    of 82 million German Marks which were to be issued only when it could be shown that prior 
+                                    obligations could be met. The A and B bonds corresponded to what Keynes had regarded as a 
+                                    feasible maximum payment in 1919.
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div class="col-sm-5 column">
+                        <p class="insights">
+                            <ul>
+                                <li>
+                                    1924-1929—The Dawes plan: After chaos caused from Germany’s hyperinflation, and evasion
+                                    of reparation payments with led to the Franco-Belgian Ruhr occupation, Germany was placed 
+                                    under American receivership. For five years Germany paid reparations with American money that
+                                    returned to the US as the UK and France used the reparations receipts to service their American
+                                    war debts. This scheme was ultimately abandoned by the US.
+                                </li>
+                                <li>
+                                    1929—The Young Plan: Germany’s debt was reduced significantly for the first 37 years, meeting
+                                    part of the war debt payments to the US, and de facto linked to interallied war debt payments
+                                    thereafter. Part of the payments were, however, made conditional to Germany’s budget stance.
+                                </li>
+                                <li>
+                                    1932—The Lausanne treaty: Following the cessation of war reparation payments only one year after
+                                    the signature of the Young agreement, and the subsequent irregular repayment of interallied debt,
+                                    another attempt was made in Lausanne to substantially reduce interallied debts and war 
+                                    reparations, but was ultimately not ratified by the US. The rejection of the Lausanne agreement
+                                    was compounded by Germany’s repudiation of Dawes and Young’s bonds, and ultimately caused a series 
+                                    of defaults in interallied debts.
+                                </li>
+                            </ul>
+                        </p>
+                        <p class="insights">
+                            An important dimension of discussions around debt amounts was related to discount rate 
+                            assumptions since bilateral government loans were not securitized or valued in the market.
+                            Simulations show that different discount rate assumptions would have resulted in significant
+                            different outcomes, altering the balance in the discussions.
+                        </p>
+                    </div>
+                </div>
+    
+                <!-- Attribution -->
+                <div class="row">
+                    <div class="col-md-12 column text-center">
+                        <span class="attribution">Created by Juna Luzi | <a href="https://www.linkedin.com/in/yuna-luzi/">LinkedIn</a> | <a href="https://github.com/najuzilu">GitHub</a></span>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </body>
+</html>
