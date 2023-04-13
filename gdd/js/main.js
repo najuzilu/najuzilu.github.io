@@ -19,23 +19,6 @@ var incomeColors = ["#9a9ad2", "#afbfda",
 	"#ee9e29", "#ee6d2b", "#cbcbcb"];
 
 $(document).ready(function() {
-	$.ajax({
-		url:"https://global-debt-data.s3.us-east-2.amazonaws.com/data.json",
-		type: "GET",
-		dataType: "json",
-		cache: false,
-		mode: "cors",
-		headers: {
-			Origin: window.location.origin,
-		},
-		success: function(data){
-			$.each(data, function(index, item){
-				console.log(index);
-			});
-		}
-	});
-
-
 	const start=1950, end=2020;
 	const yearRange = Array.from(
 		{length: end - start}, (v, k) => [k+start, k+start]
