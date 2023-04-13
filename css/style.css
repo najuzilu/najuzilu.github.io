@@ -5,13 +5,46 @@ body {
 	fill: #4A4A4A;
 }
 
-.titles, h2, h3 {
+.titles, h2, h3, {
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 400;
 }
 
 .subheader{
-  font-size: 14px;
-  text-transform: uppercase;
-  color: #949494;
+  	font-size: 14px;
+/*	text-transform: uppercase;*/
+	color: #949494;
+}
+
+h3 a {
+	text-decoration: none;
+}
+
+.network-icons a{
+	padding-left: 15px;
+}
+
+.bi {
+	font-size: 30px;
+	color: #4A4A4A;
+}
+
+.navbar-brand {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-weight: 700;
+	position: relative;
+}
+
+.section-dark {
+	color: #fff;
+}
+
+#projects h1, #notes h1 {
+	padding-top: 50px;
+}
+
+section {
+	padding-top: 15pxs;
+	padding-bottom: 50px;
 }

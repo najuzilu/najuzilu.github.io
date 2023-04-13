@@ -10,6 +10,7 @@
 
   <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <!-- Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 
@@ -18,38 +19,98 @@
   <link href="css/style.css" type="text/css" rel="stylesheet">
 
 <body>
-  <div class="profile">
-    <div id="myprofile" class="container-fluid">
-      <!-- Intro -->
-      <div class="row" style="padding-left: 5px;">
-        <div class="col-sm-4 column">
-          <div class="row" style="padding-top: 50px;">
-            <div class="col-md-12 column text-center">
-              <img class="rounded-circle" width="270" height="270" src="/images/avatar_270x270.png">
-              <h2 class="titles">Juna Luzi</h2>
-              <h4 class="titles">Graduate Student<br/>in Mathematics</h4>
-              <span class="subheader">Georgetown University</span><br/>
+  <div class="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-xl">
+        <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="https://najuzilu.github.io/">Juna Luzi</a></div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#about" data-target="#about">About Me</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects" data-target="#projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="#notes" data-target="#notes">My Notes</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
 
+  <div class="page-body">
+    <section id="about">
+      <div class="container">
+          <div class="row">
+            <div class="col-sm-3 offset-1 column text-center" style="padding-top: 15px;">
+              <img class="rounded-circle" width="225" height="225" src="/images/avatar_270x270.png">
+              <h2 class="titles">Juna Luzi</h2>
+              <h3 class="titles">Graduate Student<br/>in Mathematics</h3>
+              <h3 class="uni-name"><a href="https://www.georgetown.edu/" target="_blank" rel="noopener"><span class="subheader">Georgetown University</span></a></h3>
               <div class="network-icons">
                 <a href="https://www.linkedin.com/in/yuna-luzi/" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
                 <a href="https://github.com/najuzilu" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
                 <a href="mailto:jl2845@georgetown.edu"><i class="bi bi-envelope-fill"></i></a>
               </div>
-
             </div>
-          </div>
-        </div>
-        <div class="col-sm-7 column">
-          <div class="row">
-            <div class="col-md-12 column" style="padding-top: 30px;">
-              <p><span style="font-size: 12px;" class="expl">
-              The significance of debt in the global economy cannot be overstated. High levels of debt, especially if unsustainable or concentrated in vulnerable sectors, can undermine economic growth and stability. Monitoring debt levels and patterns is therefore crucial for policymakers seeking to identify potential risks to economic stability and take appropriate action to address them. Moreover, understanding debt is essential for assessing the overall health of the financial system and identifying systemic risks. This data visualization of global debt patterns provided by the IMF's <a href="https://www.imf.org/external/datamapper/datasets/GDD">Global Debt Database</a> is an important tool for understanding the distribution of debt around the world. The visualization allows users to explore the percentage of GDP represented by both central government debt and general government debt in different countries and regions, broken down by various categories such as nonfinancial corporate debt, private debt, and household debt. The size of each data point in the visualization indicates the type of debt, providing a clear and accessible representation of global debt patterns. By making this data easily accessible and interpretable, the visualization helps to promote greater awareness and understanding of global debt trends, and supports informed decision-making by policymakers and analysts.
+            <div class="col-sm-6 column" style="padding-top: 50px; padding-left: 30px;">
+              <h1>About Me</h1>
+              <p><span style="font-size: 15px;" class="expl">
+              I am a graduate researcher at the Lab for Globalization and Shared Prosperity at Georgetown University. I completed my Bachelor's degree in Economics and I am currently pursuing a Master's degree in Mathematics at Georgetown University. I have experience working in research positions at the International Monetary Fund and QuantEcon. I am passionate about using data to solve complex problems and have recently become deeply interested in hierarchical models.<br/><br/>
+              In my free time, I enjoy reading books &mdash; one book that has had a profound impact on me is Clint Smith's How the Word is Passed, which explores how different places in the United States remember and reckon with their histories of slavery. When I am not working on math problems or programming in Python, I enjoy practicing yoga (I am a RYT&copy;200 registered yoga teacher).
               </span></p>
             </div>
           </div>
         </div>
 
+
       </div>
-    </div>
+    </section>
+
+    <section id="projects" class="section-dark bg-dark">
+      <div class="container">
+          <div class="row">
+            <div class="col-sm-3 offset-1 column text-center">
+              <h1>Projects</h1>
+            </div>
+            <div class="col-sm-6 column" style="padding-top: 50px; padding-left: 30px;">
+              <p><span style="font-size: 15px;" class="expl">
+                <h3><a href="https://najuzilu.github.io/gdd/index.html">Debt Around the World<a></h3><br/>
+                This data visualization project explores global debt patterns using the IMF's Global Debt Database. It aims to promote greater awareness and understanding of global debt trends to support informed decision-making by policymakers and analysts.
+              </span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="notes">
+      <div class="container">
+          <div class="row">
+            <div class="col-sm-3 offset-1 column text-center">
+              <h1>My Notes</h1>
+            </div>
+            <div class="col-sm-6 column" style="padding-top: 50px; padding-left: 30px;">
+              <p><span style="font-size: 16px;" class="expl">
+                <ul>
+                  <li class="">Note #1</li>
+                  <li class="">Note #2</li>
+                  <li class="">Note #3</li>
+                  <li class="">Note #4</li>
+                  <li class="">Note #5</li>
+                </ul>
+              </span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
+
 </body>
