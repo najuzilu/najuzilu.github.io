@@ -4,3 +4,14 @@ body {
 	font-weight: 300;
 	fill: #4A4A4A;
 }
+
+.titles, h2, h3 {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 400;
+}
+
+.subheader{
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #949494;
+}
