@@ -2,6 +2,8 @@ body {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 12px;
 	font-weight: 300;
+	width: 100%;
+	height: 100%;
 }
 
 .btn-group button {
@@ -37,23 +39,23 @@ body {
   color: #949494;
 }
 
-/* Country columns */
-.country-columns{
+/* Country and flow columns */
+.country-columns, .flow-columns {
 	padding: 0px;
 	background: #739FBF;
 }
 
-.country-columns ul{
+.country-columns ul, .flow-columns ul{
 	padding: 0px;
 	height: 100%;
 	margin-bottom: 0px;
 }
 
-.country-columns ul li{
+.country-columns ul li, .flow-columns ul li{
 	list-style-type: none;
 }
 
-.country-columns ul li a{
+.country-columns ul li a, .flow-columns ul li a{
 	display: block;
 	border: 1px solid white;
 	padding-top: 30px;
@@ -66,14 +68,14 @@ body {
 	font-size: 12px;
 }
 
-.country-columns ul li.active{
+.country-columns ul li.active, .flow-columns ul li.active{
 	background: #3979A6;
 }
 
-.country-columns ul li.active a, .country-columns ul li a:hover{
+.country-columns ul li.active a, .country-columns ul li a:hover, .flow-columns ul li.active a, .flow-columns ul li a:hover{
 	color: #fff;
 }
 
-.country-columns ul li:hover{
+.country-columns ul li:hover, .flow-columns ul li:hover{
 	background: #3979A6;
 }

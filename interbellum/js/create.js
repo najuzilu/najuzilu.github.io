@@ -24,7 +24,7 @@ function createCountryElements(){
         $("ul.nav-container").append(
             $("<li>",
             {
-                id: country,
+                id: country.replace(/ /g,"_"),
                 class: "country-tab",
                 onclick: `createChart(event, '${country.replace(/ /g,"_")}-text', 'country-content', 'country-tab')`,
             }).append(
@@ -43,7 +43,7 @@ function createCountryElements(){
         $("<div>", {
             class: "country-contents col-sm-10",
         })
-    )
+    );
 
     // populate country content
     countryContent.forEach((content, i) => {
@@ -63,7 +63,7 @@ function createCountryElements(){
         );
     });
 
-    // append svg
+    // append div with id chart
     $(".country-contents").append(
         $("<div>",{
             id: "chart",
@@ -73,6 +73,8 @@ function createCountryElements(){
 }
 
 function createChart(event, name, content, links){
+    // prevent scroll up on click
+    event.preventDefault();
         
     // set all countries' text display to none
     var arrayOfCountryTexts = $(`.${content}`);
@@ -98,8 +100,7 @@ function createChart(event, name, content, links){
             type: "bar",
             borderColor: null,
             backgroundColor: "white",
-            margin: [30, 15, 75, 15],
-            // spacingTop: 15,
+            marginTop: 50,
         },
         title: {
             text: null,
@@ -108,8 +109,11 @@ function createChart(event, name, content, links){
             enabled: false,
         },
         style: {
-            width: "100%",
-            height: "100%",
+            // width: "100%",
+            // height: "100%",
+            "fontFamily": "\"Open Sans\", sans-serif",
+            "fontSize": "12px",
+
         },
         legend: {
             layout: "horizontal",
@@ -222,6 +226,175 @@ function createChart(event, name, content, links){
         countryChart.series = countryData[name.split("-")[0]].series;
         Highcharts.chart("chart", countryChart);
     })
+}
+
+
+function createFlowElements(){
+    // remove svg if exists
+    $("svg#chart").remove();
+
+    // create flow tabs
+    $(".chart").append(
+        $("<div>", {
+            class: "col-sm-2 flow-columns"
+        }).append(
+            $("<ul>", {
+                class: "nav-container"
+            })
+        )
+    );
+
+    // populate flow tabs with flow names
+    flowTabs.forEach((flow, i) => {
+        $("ul.nav-container").append(
+            $("<li>", {
+                id: `flow-${i}`,
+                class: "flow-tab",
+                onclick: `createSankeyChart(event, 'flow-${i}-text', 'flow-content', 'flow-tab')`,
+            }).append(
+                $("<a>", {
+                    href: "#",
+                }).append(
+                    $("<span>", {
+                        text: flow,
+                    })
+                )
+            )
+        )
+    });
+
+    $(".chart").append(
+        $("<div>", {
+            class: "flow-contents col-sm-10",
+        })
+    );
+
+    // populate flow content
+    flowContent.forEach((content, i) => {
+        $(".flow-contents").append(
+            $("<div>", {
+                id: `flow-${i}-text`,
+                class: "flow-content",
+                style: "display: none; padding-top:15px; text-align:center;"
+            }).append(
+                $("<p>").append(
+                    $("<i>", {
+                        text: content,
+                    })
+                )
+            )
+        );
+    });
+
+    // append div with id chart
+    $(".flow-contents").append(
+        $("<div>", {
+            id: "chart",
+            style: "padding-top:30px;"
+        })
+    );
+
+}
+
+function handleMouseOver(d, i){
+    d3.select(this)
+        .style("stroke-opacity", "0.5");
+}
+
+function handleMouseOut(d, i){
+    d3.select(this)
+        .style("stroke-opacity", "0.2");
+}
+
+function createSankeyChart(event, name, content, links_){
+    // set all flow text display to none
+    var arrayOfFlowTexts = $(`.${content}`);
+    arrayOfFlowTexts.each(i => {
+        arrayOfFlowTexts[i].style.display = "none";
+    });
+
+    var flowTabs = $(`.${links_}`);
+    flowTabs.each(i => {
+        $(flowTabs[i]).removeClass("active");
+    });
+
+    // selected
+    $(`#${name}`).css("display", "block");
+    $(event.currentTarget).addClass("active");
+
+    // declare vars for Sankey
+    var margin = {
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10,
+    };
+    var padding = {
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10,
+    };
+
+    var svg = d3.select("#chart")
+    .append("svg")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("viewBox", "0 0 100 50")
+    .attr("preserveAspectRatio", "none");
+
+    var width = svg.node().getBoundingClientRect().width;
+    var height = svg.node().getBoundingClientRect().height;
+
+    /* ============= TEST ============= */
+    var data = {
+        nodes: [
+            { id: "A1" },
+            { id: "A2" },
+            { id: "B1" },
+        ],
+        links: [
+            { source: "A1", target: "B1", value: 27 }
+        ]
+    };
+
+    const sankey = d3
+        .sankey()
+        .size([width, height])
+        .nodeId(d => d.id)
+        .nodeWidth(20)
+        .nodePadding(10)
+        .nodeAlign(d3.sankeyCenter);
     
+    var graph = sankey(data);
+
+    let links = svg
+        .append("g")
+        .classed("links", true)
+        .selectAll("path")
+        .data(graph.links)
+        .enter()
+        .append("path")
+        .classed("link", true)
+        .attr("d", d3.sankeyLinkHorizontal())
+        .attr("fill", "none")
+        .attr("stroke", "#606060")
+        .attr("stroke-width", d => d.width)
+        .attr("stoke-opacity", 0.5);
+
+    // let nodes = svg
+    //     .append("g")
+    //     .classed("nodes", true)
+    //     .selectAll("rect")
+    //     .data(graph.nodes)
+    //     .enter()
+    //     .append("rect")
+    //     .classed("node", true)
+    //     .attr("x", d => d.x0)
+    //     .attr("y", d => d.y0)
+    //     .attr("width", d => d.x1 - d.x0)
+    //     .attr("height", d => d.y1 - d.y0)
+    //     .attr("fill", "blue")
+    //     .attr("opacity", 0.8);
 
 }

@@ -16,8 +16,9 @@ body {
 	color: #949494;
 }
 
-h3 a {
+h3 a, h4 a {
 	text-decoration: none;
+	color: #D3D3D3;
 }
 
 .network-icons a{
@@ -41,10 +42,20 @@ h3 a {
 }
 
 #projects h1, #notes h1 {
-	padding-top: 50px;
+	padding-top: 150px;
 }
 
 section {
 	padding-top: 15pxs;
 	padding-bottom: 50px;
+}
+
+.project-img img{
+	height: 100%;
+	width: 100%;
+}
+
+.project-img {
+	margin: auto;
+	display: block;
 }

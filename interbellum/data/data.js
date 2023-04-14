@@ -1,4 +1,4 @@
-var countryData = {
+const countryData = {
     'france': {
         'series': [{
                 type: 'scatter',
@@ -403,4 +403,443 @@ var countryData = {
             }
         ]
     }
+};
+
+const flowData = {
+    "nodes": [{
+            node: 0,
+            'name': 'Belgium',
+            'color': 'darkgrey',
+            'tooltipText': 0
+        },
+        {
+            node: 1,
+            'name': 'France',
+            'color': '#FFD166',
+            'tooltipText': 0
+        },
+        {
+            node: 2,
+            'name': 'Great Britain',
+            'color': '#07beb8',
+            'tooltipText': 0
+        },
+        {
+            node: 3,
+            'name': 'Italy',
+            'color': 'lightblue',
+            'tooltipText': 0
+        },
+        {
+            node: 4,
+            'name': 'Russia',
+            'color': '#afe3c0',
+            'tooltipText': 0
+        },
+        {
+            node: 5,
+            'name': 'United States',
+            'color': '#427aa1',
+            'tooltipText': 0
+        },
+        {
+            node: 6,
+            'name': 'Others',
+            'color': 'lightgrey',
+            'tooltipText': 0
+        },
+        {
+            node: 7,
+            'name': 'Belgium',
+            'color': 'darkgrey',
+            'xPos': 1,
+            'tooltipText': 1
+        },
+        {
+            node: 8,
+            'name': 'France',
+            'color': '#FFD166',
+            'tooltipText': 1
+        },
+        {
+            node: 9,
+            'name': 'Great Britain',
+            'color': '#07beb8',
+            'tooltipText': 1
+        },
+        {
+            node: 10,
+            'name': 'Italy',
+            'color': 'lightblue',
+            'tooltipText': 1
+        },
+        {
+            node: 11,
+            'name': 'Russia',
+            'color': '#afe3c0',
+            'tooltipText': 1
+        },
+        {
+            node: 12,
+            'name': 'United States',
+            'color': '#427aa1',
+            'tooltipText': 1
+        },
+        {
+            node: 13,
+            'name': 'Others',
+            'color': 'lightgrey',
+            'tooltipText': 1
+        },
+
+        {
+            node: 14,
+            'name': 'France',
+            'color': '#FFD166',
+            'tooltipText': 2
+        },
+        {
+            node: 15,
+            'name': 'Great Britain',
+            'color': '#07beb8',
+            'tooltipText': 2
+        },
+        {
+            node: 16,
+            'name': 'Italy',
+            'color': 'lightblue',
+            'tooltipText': 2
+        },
+        {
+            node: 17,
+            'name': 'Russia',
+            'color': '#afe3c0',
+            'tooltipText': 2
+        },
+        {
+            node: 18,
+            'name': 'United States',
+            'color': '#427aa1',
+            'tooltipText': 2
+        },
+        {
+            node: 19,
+            'name': 'Others',
+            'color': 'lightgrey',
+            'tooltipText': 2
+        }
+    ],
+    "links": [{
+            'source': 0,
+            'target': 8,
+            'value': 534610,
+            'color': '#FFD166'
+        },
+        {
+            'source': 2,
+            'target': 8,
+            'value': 431376,
+            'color': '#FFD166'
+        },
+        {
+            'source': 3,
+            'target': 8,
+            'value': 171577,
+            'color': '#FFD166'
+        },
+        {
+            'source': 4,
+            'target': 8,
+            'value': 955157,
+            'color': '#FFD166'
+        },
+        {
+            'source': 5,
+            'target': 8,
+            'value': 382719,
+            'color': '#FFD166'
+        },
+        {
+            'source': 6,
+            'target': 8,
+            'value': 672798,
+            'color': '#FFD166'
+        },
+
+        {
+            'source': 0,
+            'target': 9,
+            'value': 422269,
+            'color': '#07beb8'
+        },
+        {
+            'source': 1,
+            'target': 9,
+            'value': 2114228,
+            'color': '#07beb8'
+        },
+        {
+            'source': 3,
+            'target': 9,
+            'value': 2007322,
+            'color': '#07beb8'
+        },
+        {
+            'source': 4,
+            'target': 9,
+            'value': 3737005,
+            'color': '#07beb8'
+        },
+        {
+            'source': 6,
+            'target': 9,
+            'value': 1026666,
+            'color': '#07beb8'
+        },
+
+        {
+            'source': 1,
+            'target': 10,
+            'value': 96625,
+            'color': 'lightblue'
+        },
+        {
+            'source': 2,
+            'target': 10,
+            'value': 152314,
+            'color': 'lightblue'
+        },
+        {
+            'source': 4,
+            'target': 10,
+            'value': 6972,
+            'color': 'lightblue'
+        },
+        {
+            'source': 5,
+            'target': 10,
+            'value': 8369,
+            'color': 'lightblue'
+        },
+
+        {
+            'source': 2,
+            'target': 11,
+            'value': 1265160,
+            'color': '#afe3c0'
+        },
+
+        {
+            'source': 0,
+            'target': 12,
+            'value': 171780,
+            'color': '#427aa1'
+        },
+        {
+            'source': 1,
+            'target': 12,
+            'value': 1970000,
+            'color': '#427aa1'
+        },
+        {
+            'source': 2,
+            'target': 12,
+            'value': 3696000,
+            'color': '#427aa1'
+        },
+        {
+            'source': 3,
+            'target': 12,
+            'value': 1031000,
+            'color': '#427aa1'
+        },
+        {
+            'source': 4,
+            'target': 12,
+            'value': 187730,
+            'color': '#427aa1'
+        },
+        {
+            'source': 6,
+            'target': 12,
+            'value': 20605,
+            'color': '#427aa1'
+        },
+
+        {
+            'source': 2,
+            'target': 13,
+            'value': 537223,
+            'color': 'lightgrey'
+        },
+        {
+            'source': 3,
+            'target': 13,
+            'value': 176,
+            'color': 'lightgrey'
+        },
+        {
+            'source': 6,
+            'target': 13,
+            'value': 36,
+            'color': 'lightgrey'
+        },
+
+        {
+            'source': 7,
+            'target': 14,
+            'value': 534610,
+            'color': 'darkgrey'
+        },
+        {
+            'source': 7,
+            'target': 15,
+            'value': 422269,
+            'color': 'darkgrey'
+        },
+        {
+            'source': 7,
+            'target': 18,
+            'value': 171780,
+            'color': 'darkgrey'
+        },
+
+        {
+            'source': 8,
+            'target': 15,
+            'value': 2114228,
+            'color': '#FFD166'
+        },
+        {
+            'source': 8,
+            'target': 16,
+            'value': 96625,
+            'color': '#FFD166'
+        },
+        {
+            'source': 8,
+            'target': 18,
+            'value': 1970000,
+            'color': '#FFD166'
+        },
+
+        {
+            'source': 9,
+            'target': 14,
+            'value': 431376,
+            'color': '#07beb8'
+        },
+        {
+            'source': 9,
+            'target': 16,
+            'value': 152314,
+            'color': '#07beb8'
+        },
+        {
+            'source': 9,
+            'target': 17,
+            'value': 1265160,
+            'color': '#07beb8'
+        },
+        {
+            'source': 9,
+            'target': 18,
+            'value': 3696000,
+            'color': '#07beb8'
+        },
+        {
+            'source': 9,
+            'target': 19,
+            'value': 537223,
+            'color': '#07beb8'
+        },
+
+        {
+            'source': 10,
+            'target': 14,
+            'value': 171577,
+            'color': 'lightblue'
+        },
+        {
+            'source': 10,
+            'target': 15,
+            'value': 2007322,
+            'color': 'lightblue'
+        },
+        {
+            'source': 10,
+            'target': 18,
+            'value': 1031000,
+            'color': 'lightblue'
+        },
+        {
+            'source': 10,
+            'target': 19,
+            'value': 176,
+            'color': 'lightblue'
+        },
+
+        {
+            'source': 11,
+            'target': 14,
+            'value': 955157,
+            'color': '#afe3c0'
+        },
+        {
+            'source': 11,
+            'target': 15,
+            'value': 3737005,
+            'color': '#afe3c0'
+        },
+        {
+            'source': 11,
+            'target': 16,
+            'value': 6972,
+            'color': '#afe3c0'
+        },
+        {
+            'source': 11,
+            'target': 18,
+            'value': 187730,
+            'color': '#afe3c0'
+        },
+
+        {
+            'source': 12,
+            'target': 14,
+            'value': 382719,
+            'color': '#427aa1'
+        },
+        {
+            'source': 12,
+            'target': 16,
+            'value': 8369,
+            'color': '#427aa1'
+        },
+
+        {
+            'source': 13,
+            'target': 14,
+            'value': 672798,
+            'color': 'darkgrey'
+        },
+        {
+            'source': 13,
+            'target': 15,
+            'value': 1026666,
+            'color': 'darkgrey'
+        },
+        {
+            'source': 13,
+            'target': 18,
+            'value': 20605,
+            'color': 'darkgrey'
+        },
+        {
+            'source': 13,
+            'target': 19,
+            'value': 36,
+            'color': 'darkgrey'
+        },
+    ]
 };
