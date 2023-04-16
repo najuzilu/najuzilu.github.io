@@ -48,7 +48,7 @@
     <section id="about">
       <div class="container">
           <div class="row">
-            <div class="col-sm-3 offset-1 column text-center" style="padding-top: 15px;">
+            <div class="col-md-4 offset-1 column text-center" style="padding-top: 15px;">
               <img class="rounded-circle" width="225" height="225" src="images/avatar_270x270.png">
               <h2 class="titles">Juna Luzi</h2>
               <h3 class="titles">Graduate Student<br/>in Mathematics</h3>
@@ -59,7 +59,7 @@
                 <a href="mailto:jl2845@georgetown.edu"><i class="bi bi-envelope-fill"></i></a>
               </div>
             </div>
-            <div class="col-sm-6 column" style="padding-top: 50px; padding-left: 30px;">
+            <div class="col-md-5 column" style="padding-top: 50px;">
               <h1>About Me</h1>
               <p><span style="font-size: 15px;" class="expl">
               I am a graduate researcher at the Lab for Globalization and Shared Prosperity at Georgetown University. I completed my Bachelor's degree in Economics and I am currently pursuing a Master's degree in Mathematics at Georgetown University. I have experience working in research positions at the International Monetary Fund and QuantEcon. I am passionate about using data to solve complex problems and have recently become interested in hierarchical models.<br/><br/>
@@ -73,14 +73,33 @@
       </div>
     </section>
 
+    <!-- Start of project section -->
     <section id="projects" class="section-dark bg-dark">
       <div class="container">
           <div class="row">
-            <div class="col-md-3 offset-1 column text-center text-light">
+            <div class="project-section col-md-3 offset-1 column text-center text-light" style="padding-top: 45px;">
               <h1>Projects</h1>
             </div>
             <div class="col-md-7 column" style="padding-top: 50px">
-              <div class="row">
+              <!-- Project 1 -->
+              <div class="row"  id="draft">
+                <div class="col-md-4 project-img">
+                  <a href="https://github.com/najuzilu/crypto">
+                    <img src="images/dag.png">
+                  </a>
+                </div>
+                <div class="col-md-8 column">
+                  <p>
+                    <span style="font-size: 15px;" class="expl">
+                      <h4><a href="https://github.com/najuzilu/crypto">Monthly Cryptoasset Market Report<a></h4>
+                        This project focuses on building a complete data pipeline. The goal is to solve a problem using data engineering techniques and develop a solution that incorporates best practices for data quality, scalability, and reliability. It utilizes APIs to extract data from Cryptowatch and NewsAPI to analyze the performance of cryptoassets in the last month. The data pipeline includes data ingestion, processing, and storage. The project retrieves all cryptoasset data for the last month using Cryptowatch REST API and retrieves all relevant news articles from last month using NewsAPI. The sentiment analysis is performed on the collection of articles using Amazon Comprehend, and the results are stored in Redshift staging tables for further analysis. The entire process is automated and scheduled through Apache Airflow to trigger on the first day of every month.
+                    </span><br/>
+                    <span class="badge rounded-pill bg-light text-dark">Python</span> <span class="badge rounded-pill bg-info text-dark">Amazon Redshift</span> <span class="badge rounded-pill bg-success">Amazon S3</span> <span class="badge rounded-pill bg-secondary">Apache Airflow</span> <span class="badge rounded-pill bg-danger">AWS Comprehend</span>
+                  </p>
+                </div>
+              </div>
+              <!-- Project 2 -->
+              <div class="row"  id="draft">
                 <div class="col-md-4 column project-img">
                   <a href="http://jluzi.com/gdd/index.html">
                     <img src="images/debt.png">
@@ -91,12 +110,12 @@
                     <span style="font-size: 15px;" class="expl">
                       <h4><a href="http://jluzi.com/gdd/index.html">Debt Around the World<a></h4>
                       The significance of debt in the global economy cannot be overstated. High levels of debt, especially if unsustainable or concentrated in vulnerable sectors, can undermine economic growth and stability. Monitoring debt levels and patterns is therefore crucial for policymakers seeking to identify potential risks to economic stability and take appropriate action to address them. Moreover, understanding debt is essential for assessing the overall health of the financial system and identifying systemic risks. This data visualization of global debt patterns provided by the IMF's Global Debt Database is an important tool for understanding the distribution of debt around the world.
-                    </span>
+                    </span><span class="badge bg-primary">JavaScript</span> <span class="badge bg-warning text-dark">D3</span>
                   </p>
                 </div>
               </div>
-
-              <div class="row">
+              <!-- Project 3 -->
+              <div class="row"  id="draft">
                 <div class="col-md-4 project-img">
                   <a href="http://jluzi.com/interbellum/index.html">
                     <img src="images/interbellum.png">
@@ -107,16 +126,21 @@
                     <span style="font-size: 15px;" class="expl">
                       <h4><a href="http://jluzi.com/interbellum/index.html">Interbellum Intergovernment Debt<a></h4>
                       World War I (WWI) was one of the deadliest war and inflicted heavy costs and losses on some of the belligerents. Taxation only partially financed massive military expenditures. An important share of military expenditures and—in the post-war era—of reconstruction costs was financed through bilateral government loans. After the United States entered the war, it provided much of the needed financing, either directly through US Treasury advances or mediated through the United Kingdom. At the end of the war, the US and the UK were the only two net creditor countries. By then, Germany had accumulated very limited external debt.
-                    </span>
+                    </span><br/>
+                    <span class="badge bg-primary">JavaScript</span> <span class="badge bg-warning text-dark">HighCharts</span>
                   </p>
                 </div>
               </div>
 
-              </div>
+              <!-- Project k -->
+              
+              <!-- End of Project -->
+            </div>
           </div>
         </div>
       </div>
     </section>
+    <!-- End of project section -->
 
    <!--  <section id="notes">
       <div class="container">
